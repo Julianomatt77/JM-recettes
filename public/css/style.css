@@ -1,0 +1,214 @@
+/**********************************/
+/*********General*********/
+/**********************************/
+@font-face {
+  font-family: "Prata";
+  src: url("../font/fonts/prata/Prata-Regular.ttf") format("truetype");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../font/fonts/montserrat/static/Montserrat-Regular.ttf") format("truetype");
+  font-display: swap;
+}
+.darkColor {
+  color: #18558f !important;
+}
+
+.lightColor {
+  color: #eefbfb !important;
+}
+
+.font3 {
+  color: #ffb976 !important;
+}
+
+.bg-dark {
+  background: #18558f !important;
+}
+
+.bg-light {
+  background: #eefbfb !important;
+}
+
+.bg-3 {
+  background: #ffb976 !important;
+}
+
+* {
+  color: #18558f;
+  font-family: "Montserrat", sans-serif !important;
+}
+
+p {
+  font-size: 1em;
+  padding: 0px 20px;
+  text-align: justify;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Prata", serif !important;
+}
+
+h1,
+h2 {
+  font-weight: bold;
+  text-align: center;
+  padding: 5px 0px;
+  font-size: 2em;
+}
+
+h3 {
+  font-weight: bold;
+  font-size: 1.8em;
+}
+
+h4 {
+  font-weight: bold;
+  font-size: 1.5em;
+}
+
+h5 {
+  font-weight: bold;
+  font-size: 1.3em;
+}
+
+a {
+  text-decoration: none;
+}
+
+.font1-5 {
+  font-size: 1.5em;
+}
+
+/************************************/
+/* Shop bouton */
+/**********************************/
+.shop-button a {
+  color: #18558f !important;
+  padding: 0.7em calc(0.7em * 1.2);
+  display: inline-block;
+  border: 3px solid transparent;
+  position: relative;
+  font-size: 1.5em;
+  cursor: pointer;
+  letter-spacing: 0.07em;
+}
+.shop-button a .text {
+  font-family: "Dancing Script", cursive;
+  transform: translate3d(0, 0.7em, 0);
+  display: block;
+  transition: transform 0.4s cubic-bezier(0.2, 0, 0, 1) 0.4s;
+}
+.shop-button a:after {
+  position: absolute;
+  content: "";
+  bottom: -3px;
+  left: calc(0.7em * 1.2);
+  right: calc(0.7em * 1.2);
+  height: 3px;
+  background: #18558f !important;
+  transition: transform 0.8s cubic-bezier(1, 0, 0.37, 1) 0.2s, right 0.2s cubic-bezier(0.04, 0.48, 0, 1) 0.6s, left 0.4s cubic-bezier(0.04, 0.48, 0, 1) 0.6s;
+  transform-origin: left;
+}
+.shop-button .line {
+  position: absolute;
+  background: #18558f !important;
+}
+.shop-button .line.-right, .shop-button .line.-left {
+  width: 3px;
+  bottom: -3px;
+  top: -3px;
+  transform: scale3d(1, 0, 1);
+}
+.shop-button .line.-top, .shop-button .line.-bottom {
+  height: 3px;
+  left: -3px;
+  right: -3px;
+  transform: scale3d(0, 1, 1);
+}
+.shop-button .line.-right {
+  right: -3px;
+  transition: transform 0.1s cubic-bezier(1, 0, 0.65, 1.01) 0.23s;
+  transform-origin: top;
+}
+.shop-button .line.-top {
+  top: -3px;
+  transition: transform 0.08s linear 0.43s;
+  transform-origin: left;
+}
+.shop-button .line.-left {
+  left: -3px;
+  transition: transform 0.08s linear 0.51s;
+  transform-origin: bottom;
+}
+.shop-button .line.-bottom {
+  bottom: -3px;
+  transition: transform 0.3s cubic-bezier(1, 0, 0.65, 1.01);
+  transform-origin: right;
+}
+.shop-button a:hover .text,
+.shop-button a:active .text {
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.6s cubic-bezier(0.2, 0, 0, 1) 0.4s;
+}
+.shop-button a:hover:after,
+.shop-button a:active:after {
+  transform: scale3d(0, 1, 1);
+  right: -3px;
+  left: -3px;
+  transform-origin: right;
+  transition: transform 0.2s cubic-bezier(1, 0, 0.65, 1.01) 0.17s, right 0.2s cubic-bezier(1, 0, 0.65, 1.01), left 0s 0.3s;
+}
+.shop-button a:hover .line,
+.shop-button a:active .line {
+  transform: scale3d(1, 1, 1);
+}
+.shop-button a:hover .line.-right,
+.shop-button a:active .line.-right {
+  transition: transform 0.1s cubic-bezier(1, 0, 0.65, 1.01) 0.2s;
+  transform-origin: bottom;
+}
+.shop-button a:hover .line.-top,
+.shop-button a:active .line.-top {
+  transition: transform 0.08s linear 0.4s;
+  transform-origin: right;
+}
+.shop-button a:hover .line.-left,
+.shop-button a:active .line.-left {
+  transition: transform 0.08s linear 0.48s;
+  transform-origin: top;
+}
+.shop-button a:hover .line.-bottom,
+.shop-button a:active .line.-bottom {
+  transition: transform 0.5s cubic-bezier(0, 0.53, 0.29, 1) 0.56s;
+  transform-origin: left;
+}
+
+/*********************
+*************
+*******************/
+.hide {
+  display: none;
+}
+
+/********** **********/
+/* FOOTER */
+/*************************/
+footer p {
+  font-size: 10px;
+}
+
+/************************************/
+/* Responsive */
+/**********************************/
+@media screen and (max-width: 650px) {
+  footer {
+    /* font-size: 10px !important; */
+  }
+}

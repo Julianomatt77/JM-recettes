@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Recette{% endblock %}
+
+{% block body %}
+    <h1>Edit Recette</h1>
+
+    {{ include('recette/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Ingrédient</th>
+                <th>Quantité</th>
+                {# <th>Recette</th> #}
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for ingredient_per_recette in ingredient_per_recettes %}
+        {% if ingredient_per_recette.recette == recette %}
+            <tr>
+                <td>{{ ingredient_per_recette.ingrediient }}</td>
+                <td>{{ ingredient_per_recette.qty }}</td>
+                {# <td>{{ recette }}</td> #}
+                <td>
+                    <a href="{{ path('app_ingredient_per_recette_show', {'id': ingredient_per_recette.id}) }}">show</a>
+                    <a href="{{ path('app_ingredient_per_recette_edit', {'id': ingredient_per_recette.id}) }}">edit</a>
+                    <a>{{ include('ingredient_per_recette/_delete_form.html.twig') }}</a>
+                </td>
+            </tr>
+            {% endif %}
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+            
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {{ include('ingredient_per_recette/_form.html.twig') }}
+
+    <a href="{{ path('recettes') }}">back to list</a>
+
+    {{ include('recette/_delete_form.html.twig') }}
+{% endblock %}

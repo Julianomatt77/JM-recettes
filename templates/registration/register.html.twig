@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    <h1>Créer un compte</h1>
+
+    {{ form_start(registrationForm) }}
+    <div class="my-2">
+        {{ form_row(registrationForm.username) }}
+    </div>
+
+    <div class="my-2">
+        {{ form_row(registrationForm.email) }}
+    </div>
+
+    <div class="my-2">
+        {{ form_row(registrationForm.plainPassword, {
+            label: 'Mot de passe'
+        }) }}
+    </div>
+
+    {# <div class="my-2">
+        {{ form_row(registrationForm.agreeTerms) }}
+    </div> #}
+       
+    <div class="mt-4 pt-2 d-flex justify-content-center">
+        {{ form_widget(registrationForm.submit, {
+            'label': "S'enregistrer"}) }}
+    </div>
+
+    {{ form_row(registrationForm._token) }}
+    {{ form_end(registrationForm, {'render_rest': false}) }}
+{% endblock %}

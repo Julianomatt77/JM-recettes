@@ -1,0 +1,258 @@
+/**********************************/
+/*********General*********/
+/**********************************/
+@font-face {
+	font-family: "Prata";
+	src: url("../font/fonts/prata/Prata-Regular.ttf") format("truetype");
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Montserrat";
+	src: url("../font/fonts/montserrat/static/Montserrat-Regular.ttf") format("truetype");
+	font-display: swap;
+}
+
+$darkColor: #18558f;
+$lightColor: #eefbfb;
+$color3: #ffb976;
+
+$headerHeight: 75px;
+$navHeight: 70px;
+$carouselPosition: 145px;
+
+.darkColor {
+	color: $darkColor !important;
+}
+
+.lightColor {
+	color: $lightColor !important;
+}
+
+.font3 {
+	color: $color3 !important;
+}
+
+.bg-dark {
+	background: $darkColor !important;
+}
+
+.bg-light {
+	background: $lightColor !important;
+}
+
+.bg-3 {
+	background: #ffb976 !important;
+}
+
+* {
+	color: $darkColor;
+	font-family: "Montserrat", sans-serif !important;
+}
+
+p {
+	font-size: 1em;
+	padding: 0px 20px;
+	text-align: justify;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: "Prata", serif !important;
+}
+
+h1,
+h2 {
+	font-weight: bold;
+	text-align: center;
+	padding: 5px 0px;
+	font-size: 2em;
+}
+h3 {
+	font-weight: bold;
+	font-size: 1.8em;
+}
+h4 {
+	font-weight: bold;
+	font-size: 1.5em;
+}
+h5 {
+	font-weight: bold;
+	font-size: 1.3em;
+}
+
+a {
+	text-decoration: none;
+}
+.font1-5 {
+	font-size: 1.5em;
+}
+
+$form-select-color: $color3 !important;
+
+/************************************/
+/* Shop bouton */
+/**********************************/
+
+$thick: 3px;
+$pad: 0.7em;
+$extra: calc(#{$pad} * 1.2);
+
+.shop-button {
+	//background: $darkColor !important;
+
+	a {
+		color: $darkColor !important;
+		padding: $pad $extra;
+		display: inline-block;
+		border: $thick solid transparent;
+		position: relative;
+		font-size: 1.5em;
+		cursor: pointer;
+		letter-spacing: 0.07em;
+
+		.text {
+			// padding: 0 0.3em;
+			font-family: "Dancing Script", cursive;
+			transform: translate3d(0, $pad, 0);
+			display: block;
+			transition: transform 0.4s cubic-bezier(0.2, 0, 0, 1) 0.4s;
+		}
+
+		&:after {
+			position: absolute;
+			content: "";
+			bottom: -$thick;
+			left: $extra;
+			right: $extra;
+			height: $thick;
+			background: $darkColor !important;
+			// z-index: -1;
+			transition: transform 0.8s cubic-bezier(1, 0, 0.37, 1) 0.2s, right 0.2s cubic-bezier(0.04, 0.48, 0, 1) 0.6s,
+				left 0.4s cubic-bezier(0.04, 0.48, 0, 1) 0.6s;
+			transform-origin: left;
+		}
+	}
+
+	.line {
+		position: absolute;
+		background: $darkColor !important;
+
+		&.-right,
+		&.-left {
+			width: $thick;
+			bottom: -$thick;
+			top: -$thick;
+			transform: scale3d(1, 0, 1);
+		}
+
+		&.-top,
+		&.-bottom {
+			height: $thick;
+			left: -$thick;
+			right: -$thick;
+			transform: scale3d(0, 1, 1);
+		}
+
+		&.-right {
+			right: -$thick;
+			transition: transform 0.1s cubic-bezier(1, 0, 0.65, 1.01) 0.23s;
+			transform-origin: top;
+		}
+
+		&.-top {
+			top: -$thick;
+			transition: transform 0.08s linear 0.43s;
+			transform-origin: left;
+		}
+
+		&.-left {
+			left: -$thick;
+			transition: transform 0.08s linear 0.51s;
+			transform-origin: bottom;
+		}
+
+		&.-bottom {
+			bottom: -$thick;
+			transition: transform 0.3s cubic-bezier(1, 0, 0.65, 1.01);
+			transform-origin: right;
+		}
+	}
+
+	a:hover,
+	a:active {
+		.text {
+			transform: translate3d(0, 0, 0);
+			transition: transform 0.6s cubic-bezier(0.2, 0, 0, 1) 0.4s;
+		}
+
+		&:after {
+			transform: scale3d(0, 1, 1);
+			right: -$thick;
+			left: -$thick;
+			transform-origin: right;
+			transition: transform 0.2s cubic-bezier(1, 0, 0.65, 1.01) 0.17s, right 0.2s cubic-bezier(1, 0, 0.65, 1.01), left 0s 0.3s;
+		}
+
+		.line {
+			transform: scale3d(1, 1, 1);
+
+			&.-right {
+				transition: transform 0.1s cubic-bezier(1, 0, 0.65, 1.01) 0.2s;
+				transform-origin: bottom;
+			}
+
+			&.-top {
+				transition: transform 0.08s linear 0.4s;
+				transform-origin: right;
+			}
+
+			&.-left {
+				transition: transform 0.08s linear 0.48s;
+				transform-origin: top;
+			}
+
+			&.-bottom {
+				transition: transform 0.5s cubic-bezier(0, 0.53, 0.29, 1) 0.56s;
+				transform-origin: left;
+			}
+		}
+	}
+}
+
+/*********************
+*************
+*******************/
+.hide {
+	display: none;
+}
+
+/********** **********/
+/* FOOTER */
+/*************************/
+footer {
+	// height: 40px !important;
+	p {
+		font-size: 10px;
+	}
+}
+
+/************************************/
+/* Responsive */
+/**********************************/
+
+@media screen and (min-width: 650px) and (max-width: 1000px) {
+}
+
+@media screen and (max-width: 650px) {
+	footer {
+		/* font-size: 10px !important; */
+		// height: 40px !important;
+		// margin-top: 30px;
+		// padding-top: 20px;
+	}
+}

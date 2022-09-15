@@ -1,0 +1,13 @@
+{{ form_start(ingredientForm) }}
+    {{ form_row(ingredientForm.ingrediient) }}
+    {{ form_row(ingredientForm.qty) }}
+
+    <div class="mt-4 pt-2 d-flex justify-content-center">
+        {{ form_widget(ingredientForm.submit,  {
+            'label': "Ajouter un ingrédient"})  }}
+    </div>
+
+    {{ form_row(ingredientForm._token) }}
+    {{ form_end(ingredientForm, {'render_rest': false}) }}
+
+{# {{ form_end(ingredientForm) }} #}
