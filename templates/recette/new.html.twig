@@ -5,7 +5,8 @@
 {% block body %}
     <h1>Create new Recette</h1>
 
-    {{ include('recette/_form.html.twig') }}
+    {{ include('recette/_form.html.twig', {'button_label': 'Ajouter la recette'}) }}
+    {{ include('source/_form.html.twig', {'button_label': 'Ajouter une source'}) }}
     {# {{ include('ingredient_per_recette/_form.html.twig') }} #}
 
     <a href="{{ path('recettes') }}">back to list</a>

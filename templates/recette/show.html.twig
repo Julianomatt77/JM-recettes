@@ -28,7 +28,10 @@
 
     <a href="{{ path('recettes') }}">back to list</a>
 
-    <a href="{{ path('recette_edit', {'id': recette.id}) }}">edit</a>
+    {% if app.user and connectedUser == recette.user %}
+        <a href="{{ path('recette_edit', {'id': recette.id}) }}">edit</a>
+        {{ include('recette/_delete_form.html.twig') }}
+    {% endif %}
 
-    {{ include('recette/_delete_form.html.twig') }}
+    
 {% endblock %}

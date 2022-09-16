@@ -1,4 +1,6 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+{{ form_start(sourceForm) }}
+<div class="d-flex justify-content-evenly align-items-center">
+    {{ form_widget(sourceForm) }}
+        <button class="btn bg-dark lightColor" style="height: 40px;">{{ button_label|default('Save') }}</button>
+    </div>
+{{ form_end(sourceForm) }}

@@ -20,10 +20,12 @@ class Course
     private ?\DateTimeInterface $date_course = null;
 
     #[ORM\ManyToMany(targetEntity: Recette::class, inversedBy: 'courses')]
+    // #[ORM\JoinColumn(onDelete:"SET NULL")]
     private Collection $recette;
 
     #[ORM\ManyToOne(inversedBy: 'courses')]
-    #[ORM\JoinColumn(nullable: false)]
+    // #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(onDelete:"SET NULL")]
     private ?User $user = null;
 
     public function __construct()

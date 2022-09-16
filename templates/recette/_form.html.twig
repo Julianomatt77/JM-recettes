@@ -2,13 +2,16 @@
     {{ form_row(form.name) }}
     {{ form_row(form.nb_personnes) }}
     {{ form_row(form.description) }}
-    {{ form_row(form.source) }}
-    {# {{ form_row(form.ingredientPerRecette) }} #}
+    <div class="row align-items-center">
+        <div class='col-lg-6'>{{ form_row(form.source) }}</div>
+        {# <div class='col-lg-6'>{{ include('source/_form.html.twig', {'button_label': 'Ajouter une source'}) }}</div> #}
+    </div>
+
     {{ form_row(form.image) }}
 
     <div class="mt-4 pt-2 d-flex justify-content-center">
-        {{ form_widget(form.submit, {
-            'label': "Ajouter une recette"}) }}
+        {# {{ form_widget(form.submit) }} #}
+        <button class="btn bg-dark lightColor">{{ button_label|default('Save') }}</button>
     </div>
 
     {{ form_row(form._token) }}

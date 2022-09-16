@@ -35,6 +35,11 @@ class IngredientPerRecetteType extends AbstractType
                       ]
                   ])
             ->add('ingrediient',EntityType::class,['class'=>Ingredient::class,'label'=>'Ingrédient','attr'=>['class'=>'form-control rounded-pill bg-light mb-4']])
+            ->add('unite', TextType::class,[
+                'label'=>'Unité',
+                'attr'=>[
+                    'class'=>'form-control rounded-pill mb-4 bg-light'
+                    ]])
             ->add('recette', EntityType::class,['class'=>Recette::class,'label'=>'Recette','attr'=>['class'=>'form-control rounded-pill bg-light mb-4']])
             ->add('submit', SubmitType::class, [
                 'attr'=> [

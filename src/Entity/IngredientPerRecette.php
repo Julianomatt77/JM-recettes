@@ -21,11 +21,14 @@ class IngredientPerRecette
     private ?Ingredient $ingrediient = null;
 
     #[ORM\ManyToOne(inversedBy: 'ingredientPerRecettes')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(onDelete:"SET NULL")]
     private ?Recette $recette = null;
 
     #[ORM\Column]
     private ?float $qty_pp = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $unite = null;
 
     public function getId(): ?int
     {
@@ -82,5 +85,17 @@ class IngredientPerRecette
 
     public function __toString(){
         return $this->ingrediient;
+    }
+
+    public function getUnite(): ?string
+    {
+        return $this->unite;
+    }
+
+    public function setUnite(?string $unite): self
+    {
+        $this->unite = $unite;
+
+        return $this;
     }
 }

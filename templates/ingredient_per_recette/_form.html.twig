@@ -1,13 +1,13 @@
 {{ form_start(ingredientForm) }}
     {{ form_row(ingredientForm.ingrediient) }}
     {{ form_row(ingredientForm.qty) }}
+    {{ form_row(ingredientForm.unite) }}
 
     <div class="mt-4 pt-2 d-flex justify-content-center">
-        {{ form_widget(ingredientForm.submit,  {
-            'label': "Ajouter un ingrédient"})  }}
+        {# {{ form_widget(ingredientForm.submit,  {
+            'label': "Ajouter un ingrédient"})  }} #}
+            <button class="btn bg-dark lightColor"">{{ button_label|default('Save') }}</button>
     </div>
 
     {{ form_row(ingredientForm._token) }}
-    {{ form_end(ingredientForm, {'render_rest': false}) }}
-
-{# {{ form_end(ingredientForm) }} #}
+{{ form_end(ingredientForm, {'render_rest': false}) }}

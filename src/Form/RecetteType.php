@@ -73,11 +73,11 @@ class RecetteType extends AbstractType
                 'attr'=>
                     ['class'=>'form-control rounded-pill bg-light mb-4 darkColor']
                   ])
-            ->add('submit', SubmitType::class, [
-                'attr'=> [
-                    'class'=> 'btn bg-dark lightColor'
-                ]
-            ])
+            // ->add('submit', SubmitType::class, [
+            //     'attr'=> [
+            //         'class'=> 'btn bg-dark lightColor'
+            //     ]
+            // ])
         ;
     }
 

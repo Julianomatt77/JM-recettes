@@ -9,7 +9,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
+#[IsGranted('ROLE_USER')]
 #[Route('/source')]
 class SourceController extends AbstractController
 {
@@ -36,7 +38,7 @@ class SourceController extends AbstractController
 
         return $this->renderForm('source/new.html.twig', [
             'source' => $source,
-            'form' => $form,
+            'sourceForm' => $form,
         ]);
     }
 
@@ -62,7 +64,7 @@ class SourceController extends AbstractController
 
         return $this->renderForm('source/edit.html.twig', [
             'source' => $source,
-            'form' => $form,
+            'sourceForm' => $form,
         ]);
     }
 

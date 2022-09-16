@@ -7,12 +7,15 @@
       <div class="navbar-nav">
         <a class="nav-link active" aria-current="page" href="{{ path('default') }}">Home</a>
         <a class="nav-link" href="{{ path('recettes') }}">Recettes</a>
-        <a class="nav-link" href="{{ path('app_course_index') }}">Liste de course</a>
-        <a class="nav-link" href="{{ path('app_source_index') }}">Source des recettes</a>
-        <a class="nav-link" href="{{ path('app_ingredient_index') }}">Ingrédients</a>
-        <a class="nav-link" href="{{ path('app_register') }}">register</a>
-        <a class="nav-link" href="{{ path('app_login') }}">login</a>
-        <a class="nav-link" href="{{ path('app_logout') }}">logout</a>
+        {% if app.user %}
+          <a class="nav-link" href="{{ path('app_course_index') }}">Liste de course</a>
+          <a class="nav-link" href="{{ path('app_source_index') }}">Source des recettes</a>
+          <a class="nav-link" href="{{ path('app_ingredient_index') }}">Ingrédients</a>
+          <a class="nav-link" href="{{ path('app_logout') }}">logout</a>
+        {% else %}
+          <a class="nav-link" href="{{ path('app_register') }}">register</a>
+          <a class="nav-link" href="{{ path('app_login') }}">login</a>
+        {% endif %}
       </div>
     </div>
   </div>

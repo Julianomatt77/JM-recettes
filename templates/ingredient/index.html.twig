@@ -21,6 +21,7 @@
                 <td>
                     <a href="{{ path('app_ingredient_show', {'id': ingredient.id}) }}">show</a>
                     <a href="{{ path('app_ingredient_edit', {'id': ingredient.id}) }}">edit</a>
+                    {{ include('ingredient/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}

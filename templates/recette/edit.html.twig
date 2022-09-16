@@ -1,18 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Recette{% endblock %}
+{% block title %}Editer {{recette.name}}{% endblock %}
 
 {% block body %}
-    <h1>Edit Recette</h1>
+    <h1>Editer la recette</h1>
 
-    {{ include('recette/_form.html.twig', {'button_label': 'Update'}) }}
+    <div class="my-5">
+        {{ include('recette/_form.html.twig', {'button_label': 'Mettre à jour la recette'}) }}
+        {{ include('source/_form.html.twig', {'button_label': 'Ajouter une source'}) }}
+    </div>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Ingrédient</th>
                 <th>Quantité</th>
-                {# <th>Recette</th> #}
+                <th>Unité</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -22,9 +25,8 @@
             <tr>
                 <td>{{ ingredient_per_recette.ingrediient }}</td>
                 <td>{{ ingredient_per_recette.qty }}</td>
-                {# <td>{{ recette }}</td> #}
+                <td>{{ ingredient_per_recette.unite }}</td>
                 <td>
-                    <a href="{{ path('app_ingredient_per_recette_show', {'id': ingredient_per_recette.id}) }}">show</a>
                     <a href="{{ path('app_ingredient_per_recette_edit', {'id': ingredient_per_recette.id}) }}">edit</a>
                     <a>{{ include('ingredient_per_recette/_delete_form.html.twig') }}</a>
                 </td>
@@ -39,7 +41,13 @@
         </tbody>
     </table>
 
-    {{ include('ingredient_per_recette/_form.html.twig') }}
+    <div class="row">
+        <div class="col-lg-6">{{ include('ingredient_per_recette/_form.html.twig',{'button_label': 'Ajouter un ingrédient dans la recette'} ) }}</div>
+        <div class="col-lg-6">{{ include('ingredient/_form.html.twig', {'button_label': 'Ajouter un ingrédient'}) }}</div>
+    </div>
+    
+
+    
 
     <a href="{{ path('recettes') }}">back to list</a>
 

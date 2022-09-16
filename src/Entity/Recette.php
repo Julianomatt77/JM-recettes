@@ -25,7 +25,8 @@ class Recette
     private $description = null;    
 
     #[ORM\ManyToOne(inversedBy: 'recettes')]
-    #[ORM\JoinColumn(nullable: false)]
+    // #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(onDelete:"SET NULL")]
     private ?Source $source = null;
 
     #[ORM\ManyToMany(targetEntity: Course::class, mappedBy: 'recette')]
@@ -36,6 +37,10 @@ class Recette
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
+
+    #[ORM\ManyToOne(inversedBy: 'recettes')]
+    #[ORM\JoinColumn(onDelete:"SET NULL")]
+    private ?User $user = null;
 
     public function __construct()
     {
@@ -169,5 +174,17 @@ class Recette
 
     public function __toString(){
         return $this->name;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
     }
 }
