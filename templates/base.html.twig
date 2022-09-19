@@ -17,6 +17,7 @@
 
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
+            
             <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" type="text/css">
             <link rel="stylesheet" href="{{ asset('font/bootstrap-icons.css') }}" type="text/css">
             <link rel="stylesheet" href="{{ asset('assets/fontawesome/css/all.css') }}" type="text/css">
@@ -26,6 +27,7 @@
 
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
+            <script src="https://kit.fontawesome.com/6b6014b051.js" crossorigin="anonymous"></script>
         {% endblock %}
     </head>
     <body class="bg-light container">

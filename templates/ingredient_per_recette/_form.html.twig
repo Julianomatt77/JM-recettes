@@ -3,10 +3,13 @@
     {{ form_row(ingredientForm.qty) }}
     {{ form_row(ingredientForm.unite) }}
 
-    <div class="mt-4 pt-2 d-flex justify-content-center">
+    <div class="d-flex justify-content-center">
         {# {{ form_widget(ingredientForm.submit,  {
             'label': "Ajouter un ingrédient"})  }} #}
-            <button class="btn bg-dark lightColor"">{{ button_label|default('Save') }}</button>
+            {# <button class="btn bg-dark lightColor">{{ button_label|default('Save') }}</button> #}
+        <button class="btn">
+            <i class="bi bi-plus-circle darkColor" style="font-size: 50px"></i>
+        </button>
     </div>
 
     {{ form_row(ingredientForm._token) }}

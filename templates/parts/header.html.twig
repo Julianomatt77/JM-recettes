@@ -9,12 +9,12 @@
         <a class="nav-link" href="{{ path('recettes') }}">Recettes</a>
         {% if app.user %}
           <a class="nav-link" href="{{ path('app_course_index') }}">Liste de course</a>
-          <a class="nav-link" href="{{ path('app_source_index') }}">Source des recettes</a>
-          <a class="nav-link" href="{{ path('app_ingredient_index') }}">Ingrédients</a>
-          <a class="nav-link" href="{{ path('app_logout') }}">logout</a>
+          {# <a class="nav-link" href="{{ path('app_source_index') }}">Source des recettes</a>
+          <a class="nav-link" href="{{ path('app_ingredient_index') }}">Ingrédients</a> #}
+          <a class="nav-link" href="{{ path('app_logout') }}"><i class="bi bi-person-x-fill text-danger" style="font-size: 30px"></i></a>
         {% else %}
-          <a class="nav-link" href="{{ path('app_register') }}">register</a>
-          <a class="nav-link" href="{{ path('app_login') }}">login</a>
+          <a class="nav-link" href="{{ path('app_register') }}">Register</a>
+          <a class="nav-link" href="{{ path('app_login') }}"><i class="bi bi-person" style="font-size: 30px"></i></a>
         {% endif %}
       </div>
     </div>

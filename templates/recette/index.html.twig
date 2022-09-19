@@ -1,51 +1,58 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Recette index{% endblock %}
+{% block title %}Recettes{% endblock %}
 
 {% block body %}
-    <h1>Recette index</h1>
+    <h1>Liste des recettes</h1>
+    {% if app.user %}
+        <div class="d-flex justify-content-center">
+            <a href="{{ path('recette_new') }}">
+                <i class="bi bi-plus-circle darkColor" style="font-size: 50px"></i>
+            </a>
+        </div>
+    {% endif %}
 
-    <table class="table">
-        <thead>
-            <tr>
-                {# <th>Id</th> #}
-                <th>Nom</th>
-                <th>Source</th>
-                <th>Nbr de couverts</th>
-                <th>Description</th>
-                <th>ingrédients</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for recette in recettes %}
-            <tr>
-                {# <td>{{ recette.id }}</td> #}
-                <td>{{ recette.name }}</td>
-                <td>{{ recette.source }}</td>
-                <td>{{ recette.nbPersonnes }}</td>
-                <td>{{ recette.description }}</td>
-                <td>{% for ingredient in ingredients %}
-                        {% if ingredient.recette() and ingredient.recette().id() == recette.id%}
-                            <p>{{ ingredient }}</p>
+    <div class="row d-flex justify-content-evenly bg-light">
+    {% for recette in recettes %}
+        <div class="card my-2 col-lg-3 col-10 px-0 mx-1">
+            <div class="card-header d-flex justify-content-evenly align-items-center">
+                <h5 class="mb-0">{{ recette.name }}</h5>
+                <a href="{{ path('recette_show', {'id': recette.id}) }}" class="mx-2">
+                    <i class="bi bi-info-circle" style="font-size: 20px"></i>
+                </a>
+                {% if app.user and connectedUser == recette.user %}
+                    <a href="{{ path('recette_edit', {'id': recette.id}) }}" class="ms-2">
+                        <i class="bi bi-pen" style="font-size: 20px"></i>
+                    </a>                    
+                {% endif %}
+            </div>
+            
+            <div class="card-body">
+                <h6 class="card-title text-center mb-2">{{ recette.source }}</h6>
+                <p class="card-text text-center">
+                    {{ recette.nbPersonnes }} couverts</p>
+                <p>
+                <div class="card">
+                    <h6 class="card-title text-center my-2"> Ingrédients</h6>
+                    <p class="text-start mx-0 px-3">
+                    {% for ingredient in ingredients %}
+                        {% if ingredient.recette() and ingredient.recette().id() == recette.id %}
+                            {{ingredient.qty}} {{ingredient.unite}} {{ ingredient }} <br />
                         {% endif %}
-                    {% endfor %}
-                </td>
-                <td>
-                    <a href="{{ path('recette_show', {'id': recette.id}) }}">show</a>
-                    {% if app.user and connectedUser == recette.user %}
-                        <a href="{{ path('recette_edit', {'id': recette.id}) }}">edit</a>
-                        <a>{{ include('recette/_delete_form.html.twig') }}</a>
-                    {% endif %}
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                    {% endfor %}</p>
+                    </p>
+                </div>
 
-    <a href="{{ path('recette_new') }}">Create new</a>
+                {% if app.user and connectedUser == recette.user %}
+                    {{ include('recette/_delete_form.html.twig') }}
+                {% endif %}
+            </div>
+        </div>
+
+    {% else %}
+        <div class>
+            Aucune recette enregistré
+        </div>
+    {% endfor %}    
+    </div>
 {% endblock %}

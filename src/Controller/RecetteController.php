@@ -42,10 +42,8 @@ class RecetteController extends AbstractController
         $connectedUser = $this->security->getUser();
         $ingredients = $ingredientPerRecetteRepository->findAll();
 
-        // dd($ingredients);
-
         return $this->render('recette/index.html.twig', [
-            'recettes' => $recetteRepository->findAll(),
+            'recettes' => $recetteRepository->findAllSorted(),
             'connectedUser' => $connectedUser,
             'ingredients' => $ingredients
         ]);
@@ -93,13 +91,15 @@ class RecetteController extends AbstractController
     }
 
     #[Route('/{id}', name: 'recette_show', methods: ['GET'])]
-    public function show(Recette $recette): Response
+    public function show(Recette $recette, IngredientPerRecetteRepository $ingredientPerRecetteRepository): Response
     {
         $connectedUser = $this->security->getUser();
+        $ingredients = $ingredientPerRecetteRepository->findAll();
 
         return $this->render('recette/show.html.twig', [
             'recette' => $recette,
-            'connectedUser' => $connectedUser
+            'connectedUser' => $connectedUser,
+            'ingredients' => $ingredients
         ]);
     }
 

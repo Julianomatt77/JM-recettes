@@ -86,6 +86,28 @@ a {
   font-size: 1.5em;
 }
 
+.btn-primary {
+  background-color: #18558f;
+  color: #eefbfb !important;
+}
+.btn-primary a {
+  color: #eefbfb !important;
+}
+
+/************************************/
+/* CARDS */
+/**********************************/
+.card {
+  border: none !important;
+  box-shadow: 10px 10px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
+  background-color: #eefbfb !important;
+}
+
+.card .card {
+  border: 1px solid #18558f !important;
+  box-shadow: none !important;
+}
+
 /************************************/
 /* Shop bouton */
 /**********************************/
@@ -207,8 +229,3 @@ footer p {
 /************************************/
 /* Responsive */
 /**********************************/
-@media screen and (max-width: 650px) {
-  footer {
-    /* font-size: 10px !important; */
-  }
-}

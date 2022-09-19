@@ -16,6 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use App\Repository\IngredientRepository;
 
 class IngredientPerRecetteType extends AbstractType
 {
@@ -34,9 +35,18 @@ class IngredientPerRecetteType extends AbstractType
                           'class'=> 'form-control rounded-pill bg-light'
                       ]
                   ])
-            ->add('ingrediient',EntityType::class,['class'=>Ingredient::class,'label'=>'Ingrédient','attr'=>['class'=>'form-control rounded-pill bg-light mb-4']])
+            ->add('ingrediient',EntityType::class,[
+                'class'=>Ingredient::class,
+                'label'=>'Ingrédient',
+                'attr'=>['class'=>'form-control rounded-pill bg-light mb-4'],
+                'query_builder' => function (IngredientRepository $er) {
+                                return $er->createQueryBuilder('u')
+                                    ->orderBy('u.name', 'ASC');
+                            },
+                ])
             ->add('unite', TextType::class,[
                 'label'=>'Unité',
+                'required' => false,
                 'attr'=>[
                     'class'=>'form-control rounded-pill mb-4 bg-light'
                     ]])

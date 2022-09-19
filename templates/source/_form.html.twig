@@ -1,6 +1,9 @@
 {{ form_start(sourceForm) }}
-<div class="d-flex justify-content-evenly align-items-center">
+<div class="d-flex justify-content-start align-items-center">
     {{ form_widget(sourceForm) }}
-        <button class="btn bg-dark lightColor" style="height: 40px;">{{ button_label|default('Save') }}</button>
+        {# <button class="btn bg-dark lightColor mx-3" style="height: 40px;">{{ button_label|default('Save') }}</button> #}
+        <button class="btn">
+            <i class="bi bi-plus-circle darkColor" style="font-size: 50px"></i>
+        </button>
     </div>
 {{ form_end(sourceForm) }}

@@ -14,7 +14,7 @@ class SourceType extends AbstractType
     {
         $builder
              ->add('name', TextType::class,[
-                'label'=>'Nom',
+                'label'=>'Nom de la source',
                 'attr'=>[
                     'class'=>'form-control rounded-pill mb-4 bg-light'
             ]])

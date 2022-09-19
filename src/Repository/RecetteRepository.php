@@ -57,6 +57,18 @@ public function findLastInserted()
         ->getOneOrNullResult();
 }
 
+   /**
+    * @return Recette[] Returns an array of Recette objects
+    */
+   public function findAllSorted(): array
+   {
+       return $this->createQueryBuilder('r')
+           ->orderBy('r.name', 'ASC')
+           ->getQuery()
+           ->getResult()
+       ;
+   }
+
 //    /**
 //     * @return Recette[] Returns an array of Recette objects
 //     */

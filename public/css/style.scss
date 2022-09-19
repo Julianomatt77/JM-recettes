@@ -94,6 +94,29 @@ a {
 
 $form-select-color: $color3 !important;
 
+.btn-primary {
+	background-color: $darkColor;
+	color: $lightColor !important;
+	a {
+		color: $lightColor !important;
+	}
+}
+
+/************************************/
+/* CARDS */
+/**********************************/
+
+.card {
+	border: none !important;
+	box-shadow: 10px 10px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
+	background-color: $lightColor !important;
+}
+
+.card .card {
+	border: 1px solid $darkColor !important;
+	box-shadow: none !important;
+}
+
 /************************************/
 /* Shop bouton */
 /**********************************/
@@ -245,14 +268,14 @@ footer {
 /* Responsive */
 /**********************************/
 
-@media screen and (min-width: 650px) and (max-width: 1000px) {
-}
+// @media screen and (min-width: 650px) and (max-width: 1000px) {
+// }
 
-@media screen and (max-width: 650px) {
-	footer {
-		/* font-size: 10px !important; */
-		// height: 40px !important;
-		// margin-top: 30px;
-		// padding-top: 20px;
-	}
-}
+// @media screen and (max-width: 650px) {
+// 	footer {
+// 		/* font-size: 10px !important; */
+// 		// height: 40px !important;
+// 		// margin-top: 30px;
+// 		// padding-top: 20px;
+// 	}
+// }
