@@ -69,6 +69,23 @@ public function findLastInserted()
        ;
    }
 
+   public function search($filtres){
+
+        $query = $this->createQueryBuilder('p');
+            // ->leftJoin('p.source', 'source');
+            // ->leftJoin('p.ingredient', 'ingredient');
+
+        if(!empty($filtres) && !is_null($filtres["search"])){
+            $query->where('p.name LIKE :name')
+                ->orWhere('p.description LIKE :name')
+                // ->orWhere('source LIKE :name')
+                // ->orWhere('ingredient LIKE :name')
+                ->setParameter('name', '%'.$filtres["search"].'%');
+        }
+
+        return $query->getQuery()->getResult();
+    }
+
 //    /**
 //     * @return Recette[] Returns an array of Recette objects
 //     */

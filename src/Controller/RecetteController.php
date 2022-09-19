@@ -9,6 +9,7 @@ use App\Entity\Ingredient;
 use App\Form\RecetteType;
 use App\Form\IngredientPerRecetteType;
 use App\Form\IngredientType;
+use App\Form\SearchType;
 use App\Repository\RecetteRepository;
 use App\Repository\IngredientPerRecetteRepository;
 use App\Repository\IngredientRepository;
@@ -36,16 +37,42 @@ class RecetteController extends AbstractController
     }
 
 
-    #[Route('/', name: 'recettes', methods: ['GET'])]
-    public function index(RecetteRepository $recetteRepository, IngredientPerRecetteRepository $ingredientPerRecetteRepository): Response
+    #[Route('/', name: 'recettes', methods: ['GET', 'POST'])]
+    public function index(Request $request, RecetteRepository $recetteRepository, IngredientPerRecetteRepository $ingredientPerRecetteRepository): Response
     {
+        $recettes = $recetteRepository->findAllsorted();
         $connectedUser = $this->security->getUser();
         $ingredients = $ingredientPerRecetteRepository->findAll();
+        $session = $request->getSession();
+
+        if($session->has('filtres')){
+            $filtres = $session->get('filtres');
+
+        } else {
+            $filtres = [
+                'search' => null,
+            ];
+        }
+
+        $session = $request->getSession();
+        
+        //        Search
+        $searchForm = $this->createForm(searchType::class);
+        $searchForm->handleRequest($request);
+
+         if($searchForm->isSubmitted() and $searchForm->isValid()){
+            $filtres = $searchForm->getData();
+            $session->set("filtres", $filtres);
+            $recettes = $recetteRepository->search($filtres);
+        }
+
 
         return $this->render('recette/index.html.twig', [
-            'recettes' => $recetteRepository->findAllSorted(),
+            'recettes' => $recettes,
             'connectedUser' => $connectedUser,
-            'ingredients' => $ingredients
+            'ingredients' => $ingredients,
+            'filtres'=>$filtres,
+            'searchForm' => $searchForm->createView()
         ]);
     }
 

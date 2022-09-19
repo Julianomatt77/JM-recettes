@@ -4,6 +4,25 @@
 
 {% block body %}
     <h1>Liste des recettes</h1>
+
+    
+    {{ form_start(searchForm) }}
+    <div class="row align-items-center mb-3 text-center">
+        <div class="col-lg-4 mt-3">
+        {% if app.session.get('filtres') is not null and app.session.get('filtres')["search"] %}
+            {{ form_widget(searchForm.search, {'value': filtres.search}) }}
+        {% else %}
+            {{ form_widget(searchForm.search) }}
+        {% endif %}
+        </div>
+        <div class="col-lg-4 mt-3">
+        {{ form_widget(searchForm.Filtrer) }}
+        </div>
+    </div>
+    {{ form_row(searchForm._token) }}
+    {{ form_end(searchForm, {'render_rest': false}) }}
+    
+
     {% if app.user %}
         <div class="d-flex justify-content-center">
             <a href="{{ path('recette_new') }}">
