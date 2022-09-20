@@ -28,6 +28,9 @@ class Course
     #[ORM\JoinColumn(onDelete:"SET NULL")]
     private ?User $user = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $name = null;
+
     public function __construct()
     {
         $this->recette = new ArrayCollection();
@@ -43,7 +46,7 @@ class Course
         return $this->date_course;
     }
 
-    public function setDateCourse(\DateTimeInterface $date_course): self
+    public function setDateCourse(?\DateTimeInterface $date_course): self
     {
         $this->date_course = $date_course;
 
@@ -82,6 +85,18 @@ class Course
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): self
+    {
+        $this->name = $name;
 
         return $this;
     }

@@ -10,17 +10,21 @@
 
     {% if app.user %}
         <div class="mb-3">
-            Vous êtes maintenant connecté en tant que {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+            Vous êtes maintenant connecté en tant que {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Se déconnecter</a>
         </div>
     {% endif %}
 
-    <h1 class="h3 mb-3 font-weight-normal">Veuillez vous connecter</h1>
+    <h1 class="mb-3">Veuillez vous connecter</h1>
 
-    <label for="inputUsername">Nom d'utilisateur</label>
-    <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control rounded-pill bg-light my-2" autocomplete="username" required autofocus>
-
-    <label for="inputPassword">Mot de passe</label>
-    <input type="password" name="password" id="inputPassword" class="form-control rounded-pill bg-light my-2" autocomplete="current-password" required>
+    <div class="text-center">
+        <label for="inputUsername">Nom d'utilisateur</label>
+        <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control rounded-pill bg-light my-2" autocomplete="username" required autofocus>
+    </div>
+    
+    <div class="text-center">
+        <label for="inputPassword">Mot de passe</label>
+        <input type="password" name="password" id="inputPassword" class="form-control rounded-pill bg-light my-2 mx-auto" autocomplete="current-password" required>
+    </div>
 
     <input type="hidden" name="_csrf_token"
            value="{{ csrf_token('authenticate') }}"
@@ -36,6 +40,7 @@
             </label>
         </div>
     #}
+    
 
 <div class="mt-4 pt-2 d-flex justify-content-center">
     <button class="btn btn-lg bg-dark lightColor " type="submit">
@@ -44,4 +49,5 @@
 </div>
     
 </form>
+
 {% endblock %}

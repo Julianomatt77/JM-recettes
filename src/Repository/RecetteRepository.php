@@ -71,7 +71,8 @@ public function findLastInserted()
 
    public function search($filtres){
 
-        $query = $this->createQueryBuilder('p');
+        $query = $this->createQueryBuilder('p')
+            ->orderBy('p.name', 'ASC');
             // ->leftJoin('p.source', 'source');
             // ->leftJoin('p.ingredient', 'ingredient');
 

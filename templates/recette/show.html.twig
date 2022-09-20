@@ -4,53 +4,59 @@
 
 {% block body %}
     <h1>Recette</h1>
-    <div class="d-flex justify-content-center">
-        <div class="card my-2 col-lg-6 col-11">
-            <div class="card-header d-flex justify-content-evenly align-items-center">
-                <h5 class="mb-0">{{ recette.name }}</h5>
-                
-                {% if app.user and connectedUser == recette.user %}
-                    <a href="{{ path('recette_edit', {'id': recette.id}) }}" class="ms-2">
-                        <i class="bi bi-pen" style="font-size: 20px"></i>
-                    </a>                    
-                {% endif %}
-            </div>
-            
-            <div class="card-body">
-                <h6 class="text-start mb-2">Origine de la recette:</h6>
-                <p>{{ recette.source }}</p>
-
-                <h6 class="text-start mb-2">Nombre de personnes:</h6>
-                <p class="card-text text-start">
-                    {{ recette.nbPersonnes }} couverts</p>
-                <p>
-
-                <h6 class="text-start my-2"> Ingrédients</h6>
-                <ul>
-                {% for ingredient in ingredients %}
-                    {% if ingredient.recette() and ingredient.recette().id() == recette.id %}
-                        <li> {{ingredient.qty}} {{ingredient.unite}} {{ ingredient }} </li>
+    <div class="mb-5">
+        <div class="d-flex justify-content-center">
+            <div class="card my-2 col-lg-6 col-11">
+                <div class="card-header d-flex justify-content-evenly align-items-center">
+                    <h5 class="mb-0">{{ recette.name }}</h5>
+                    
+                    {% if app.user and connectedUser == recette.user %}
+                        <a href="{{ path('recette_edit', {'id': recette.id}) }}" class="ms-2">
+                            <i class="bi bi-pen" style="font-size: 20px"></i>
+                        </a>                    
                     {% endif %}
-                {% endfor %}
-                </ul>
-
-                <h6 class="text-start mb-2">Description de la recette:</h6>
-                <textarea rows="20" class="form-control card-text text-start bg-light darkColor">
-                    {{ recette.description }}</textarea>
-                <p>
-
+                </div>
                 
-                {% if app.user and connectedUser == recette.user %}
-                    {{ include('recette/_delete_form.html.twig') }}
-                {% endif %}
+                <div class="card-body">
+                    <h6 class="text-start mb-2">Origine de la recette:</h6>
+                    <p>{{ recette.source }}</p>
+
+                    <h6 class="text-start mb-2">Nombre de personnes:</h6>
+                    <p class="card-text text-start">
+                        {{ recette.nbPersonnes }} couverts</p>
+                    <p>
+
+                    <h6 class="text-start my-2"> Ingrédients</h6>
+                    <ul>
+                    {% for ingredient in ingredients %}
+                        {% if ingredient.recette() and ingredient.recette().id() == recette.id %}
+                            <li> {{ingredient.qty}} {{ingredient.unite}} {{ ingredient }} </li>
+                        {% endif %}
+                    {% endfor %}
+                    </ul>
+
+                    <h6 class="text-start mb-2">Description de la recette:</h6>
+                    <textarea rows="20" class="form-control card-text text-start bg-light darkColor">
+                        {{ recette.description }}</textarea>
+                    <p>
+
+                    
+                    {% if app.user and connectedUser == recette.user %}
+                        {{ include('recette/_delete_form.html.twig') }}
+                    {% endif %}
+                </div>
             </div>
         </div>
+
+        <div class="text-center mt-4">
+            <button class="btn btn-lg btn-primary"><a href="{{ path('recettes') }}">RETOUR</a></button>
+        </div>
+
     </div>
+    
  
 
-    <div class="text-center mt-5">
-        <button class="btn btn-lg btn-primary"><a href="{{ path('recettes') }}">RETOUR</a></button>
-    </div>
+    
 
     {# {% if app.user and connectedUser == recette.user %}
         <a href="{{ path('recette_edit', {'id': recette.id}) }}">edit</a>

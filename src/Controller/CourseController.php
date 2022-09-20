@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Course;
+use Symfony\Component\Security\Core\Security;
 use App\Form\CourseType;
 use App\Repository\CourseRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,6 +16,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 #[Route('/course')]
 class CourseController extends AbstractController
 {
+    private $security;
+
+    public function __construct(Security $security)
+    {
+        $this -> security = $security;
+    }
+
     #[Route('/', name: 'app_course_index', methods: ['GET'])]
     public function index(CourseRepository $courseRepository): Response
     {
@@ -30,7 +38,12 @@ class CourseController extends AbstractController
         $form = $this->createForm(CourseType::class, $course);
         $form->handleRequest($request);
 
+        $course->setDateCourse(new \DateTime());
+
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $course->setUser($this->security->getUser()); 
+
             $courseRepository->add($course, true);
 
             return $this->redirectToRoute('app_course_index', [], Response::HTTP_SEE_OTHER);
@@ -53,10 +66,12 @@ class CourseController extends AbstractController
     #[Route('/{id}/edit', name: 'app_course_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Course $course, CourseRepository $courseRepository): Response
     {
+        $date = $course->getDateCourse();
         $form = $this->createForm(CourseType::class, $course);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $course->setDateCourse($date);
             $courseRepository->add($course, true);
 
             return $this->redirectToRoute('app_course_index', [], Response::HTTP_SEE_OTHER);

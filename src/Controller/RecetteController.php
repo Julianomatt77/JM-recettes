@@ -47,6 +47,7 @@ class RecetteController extends AbstractController
 
         if($session->has('filtres')){
             $filtres = $session->get('filtres');
+            $recettes = $recetteRepository->search($filtres);
 
         } else {
             $filtres = [
@@ -55,7 +56,7 @@ class RecetteController extends AbstractController
         }
 
         $session = $request->getSession();
-        
+
         //        Search
         $searchForm = $this->createForm(searchType::class);
         $searchForm->handleRequest($request);
