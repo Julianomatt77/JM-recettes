@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Entity\Recette;
+use App\Entity\Course;
 use App\Entity\IngredientPerRecette;
 use App\Entity\Ingredient;
 use App\Form\RecetteType;
@@ -24,6 +25,9 @@ use Symfony\Component\Security\Core\Security;
 use App\Entity\Source;
 use App\Form\SourceType;
 use App\Repository\SourceRepository;
+use App\Entity\CourseRecette;
+use App\Form\CourseRecetteType;
+use App\Repository\CourseRecetteRepository;
 
 #[Route('/recette')]
 class RecetteController extends AbstractController
@@ -118,16 +122,45 @@ class RecetteController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'recette_show', methods: ['GET'])]
-    public function show(Recette $recette, IngredientPerRecetteRepository $ingredientPerRecetteRepository): Response
+    #[Route('/{id}', name: 'recette_show', methods: ['GET', 'POST'])]
+    public function show(Recette $recette, IngredientPerRecetteRepository $ingredientPerRecetteRepository, CourseRecetteRepository $courseRecetteRepository, Request $request): Response
     {
         $connectedUser = $this->security->getUser();
         $ingredients = $ingredientPerRecetteRepository->findAll();
+        $courseRecettes = $courseRecetteRepository->findAll();
+
+        // dd($courseRecettes);
+
+        // Ajout de la recette à une liste de course
+        $courseRecette = new CourseRecette();
+        $form = $this->createForm(CourseRecetteType::class, $courseRecette);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            foreach($courseRecettes as $existingCourse){
+                if($form->getData()->getCourse()->getId() == $existingCourse->getId() && $recette->getId() == $existingCourse->getRecette()->getId()){
+
+                    // Si la recette est déjà dans la liste de course on update la qty  
+                    $courseRecette = $existingCourse;
+                    $courseRecette->setQty($courseRecette->getQty() + $form->getData()->getQty());
+                    
+                    $courseRecetteRepository->add($courseRecette, true);
+                } else {
+                    // Sinon on la rajoute dans la liste de course
+                    $courseRecette->setRecette($recette);
+                    $courseRecetteRepository->add($courseRecette, true);
+                }
+            }
+        }
+        // Fin de l'ajout de la recette à une liste de course
 
         return $this->render('recette/show.html.twig', [
             'recette' => $recette,
             'connectedUser' => $connectedUser,
-            'ingredients' => $ingredients
+            'ingredients' => $ingredients,
+            'course_recette' => $courseRecette,
+            'form' => $form->createView(),
         ]);
     }
 

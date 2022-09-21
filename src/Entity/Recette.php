@@ -29,8 +29,8 @@ class Recette
     #[ORM\JoinColumn(onDelete:"SET NULL")]
     private ?Source $source = null;
 
-    #[ORM\ManyToMany(targetEntity: Course::class, mappedBy: 'recette')]
-    private Collection $courses;
+    // #[ORM\ManyToMany(targetEntity: Course::class, mappedBy: 'recette')]
+    // private Collection $courses;
 
     #[ORM\OneToMany(mappedBy: 'recette', targetEntity: IngredientPerRecette::class)]
     private Collection $ingredientPerRecettes;
@@ -42,11 +42,15 @@ class Recette
     #[ORM\JoinColumn(onDelete:"SET NULL")]
     private ?User $user = null;
 
+    #[ORM\OneToMany(mappedBy: 'recette', targetEntity: CourseRecette::class)]
+    private Collection $courseRecettes;
+
     public function __construct()
     {
         $this->ingredient = new ArrayCollection();
-        $this->courses = new ArrayCollection();
+        // $this->courses = new ArrayCollection();
         $this->ingredientPerRecettes = new ArrayCollection();
+        $this->courseRecettes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -103,32 +107,32 @@ class Recette
         return $this;
     }
 
-    /**
-     * @return Collection<int, Course>
-     */
-    public function getCourses(): Collection
-    {
-        return $this->courses;
-    }
+    // /**
+    //  * @return Collection<int, Course>
+    //  */
+    // public function getCourses(): Collection
+    // {
+    //     return $this->courses;
+    // }
 
-    public function addCourse(Course $course): self
-    {
-        if (!$this->courses->contains($course)) {
-            $this->courses->add($course);
-            $course->addRecette($this);
-        }
+    // public function addCourse(Course $course): self
+    // {
+    //     if (!$this->courses->contains($course)) {
+    //         $this->courses->add($course);
+    //         $course->addRecette($this);
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
-    public function removeCourse(Course $course): self
-    {
-        if ($this->courses->removeElement($course)) {
-            $course->removeRecette($this);
-        }
+    // public function removeCourse(Course $course): self
+    // {
+    //     if ($this->courses->removeElement($course)) {
+    //         $course->removeRecette($this);
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     /**
      * @return Collection<int, IngredientPerRecette>
@@ -184,6 +188,36 @@ class Recette
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CourseRecette>
+     */
+    public function getCourseRecettes(): Collection
+    {
+        return $this->courseRecettes;
+    }
+
+    public function addCourseRecette(CourseRecette $courseRecette): self
+    {
+        if (!$this->courseRecettes->contains($courseRecette)) {
+            $this->courseRecettes->add($courseRecette);
+            $courseRecette->setRecette($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCourseRecette(CourseRecette $courseRecette): self
+    {
+        if ($this->courseRecettes->removeElement($courseRecette)) {
+            // set the owning side to null (unless already changed)
+            if ($courseRecette->getRecette() === $this) {
+                $courseRecette->setRecette(null);
+            }
+        }
 
         return $this;
     }

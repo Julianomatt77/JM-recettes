@@ -5,19 +5,79 @@
 {% block body %}
     <h1>Course index</h1>
 
-    <table class="table">
+    <div class="row d-flex justify-content-evenly bg-light mb-5">
+    {% for course in courses %}
+        <div class="card my-2 col-lg-4 col-10 px-0 mx-1">
+            <div class="card-header d-flex justify-content-evenly align-items-center">
+                <h5 class="mb-0">{{ course.name }}</h5>
+                {# <a href="{{ path('recette_show', {'id': course.id}) }}" class="mx-2">
+                    <i class="bi bi-info-circle" style="font-size: 20px"></i>
+                </a>
+                {% if app.user and connectedUser == course.user %}
+                    <a href="{{ path('recette_edit', {'id': course.id}) }}" class="ms-2">
+                        <i class="bi bi-pen" style="font-size: 20px"></i>
+                    </a>                    
+                {% endif %} #}
+            </div>
+            
+            <div class="card-body">
+                <h6 class="card-title text-center mb-2">{{ course.dateCourse ? course.dateCourse|date('Y-m-d') : '' }}</h6>
+
+                <div class="card">
+                    <h6 class="card-title text-center my-2">Recettes</h6>
+                    <p class="text-start mx-0 px-3">
+                    {% for courseRecette in recettes %}
+                        {% if courseRecette.course() and courseRecette.course().id() == course.id %}
+                            {{ courseRecette.recette().name() }} ( {{ courseRecette.qty }} couverts) <br />
+                            {# {{ ingredient.name() }} #}
+                            {# {% for recette in courseRecette.recette() %}
+                                {{ recette.ingredient().name }}
+                            {% endfor %} #}
+
+                            {# {% for ingredient in ingredients %}
+                                {% if ingredient.recette() and ingredient.recette().id() == courseRecette.id() %}
+                                    {{ingredient.qty}} {{ingredient.unite}} {{ ingredient }} <br />
+                                {% endif %}
+                            {% endfor %} #}
+
+                            {# {{ include('course_recette/_delete_form.html.twig', {'id': courseRecette.id}) }} #}
+                            {# <br /> #}
+                        {% endif %}
+                    {% endfor %}
+                    </p>
+                </div>
+
+                {% if app.user and connectedUser == course.user %}
+                    {{ include('course/_delete_form.html.twig') }}
+                {% endif %}
+            </div>
+        </div>
+
+    {% else %}
+        <div class>
+            Aucune recette enregistré
+        </div>
+    {% endfor %}    
+    </div>
+
+
+
+
+
+    {# <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Date_course</th>
+                <th>Date</th>
+                <th>Nom</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for course in courses %}
             <tr>
-                <td>{{ course.id }}</td>
+                
                 <td>{{ course.dateCourse ? course.dateCourse|date('Y-m-d') : '' }}</td>
+                <td>{{ course.name }}</td>
                 <td>
                     <a href="{{ path('app_course_show', {'id': course.id}) }}">show</a>
                     <a href="{{ path('app_course_edit', {'id': course.id}) }}">edit</a>
@@ -29,7 +89,7 @@
             </tr>
         {% endfor %}
         </tbody>
-    </table>
+    </table> #}
 
     <a href="{{ path('app_course_new') }}">Create new</a>
 {% endblock %}

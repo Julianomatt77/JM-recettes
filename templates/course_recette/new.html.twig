@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New CourseRecette{% endblock %}
+
+{% block body %}
+    <h1>Create new CourseRecette</h1>
+
+    {{ include('course_recette/_form.html.twig') }}
+
+    <a href="{{ path('app_course_recette_index') }}">back to list</a>
+{% endblock %}

@@ -6,6 +6,9 @@ use App\Entity\Course;
 use Symfony\Component\Security\Core\Security;
 use App\Form\CourseType;
 use App\Repository\CourseRepository;
+use App\Repository\CourseRecetteRepository;
+use App\Repository\IngredientPerRecetteRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,16 +21,78 @@ class CourseController extends AbstractController
 {
     private $security;
 
-    public function __construct(Security $security)
+    public function __construct(UserRepository $userRepository, Security $security)
     {
+        $this->userRepository = $userRepository;
         $this -> security = $security;
     }
 
     #[Route('/', name: 'app_course_index', methods: ['GET'])]
-    public function index(CourseRepository $courseRepository): Response
+    public function index(CourseRepository $courseRepository, Request $request, CourseRecetteRepository $courseRecetteRepository, IngredientPerRecetteRepository $ingredientPerRecetteRepository): Response
     {
+        $connectedUser = $this->security->getUser();
+        $session = $request->getSession();
+
+        $recettesInList = $courseRecetteRepository->findAll();
+        $courses = $courseRepository->findAll();
+        $ingredients = $ingredientPerRecetteRepository->findAll();
+
+        // Lister les ingrédients
+        // dd($ingredients);
+        
+        // $ingredientList = [];
+        // foreach($recettesInList as $recette){
+        //     $ingredientPerRecette = $recette->getRecette()->getIngredientPerRecettes();
+        //     // dd($ingredient);
+            
+        //     $ing= [];
+        //     foreach($ingredientPerRecette as $ingredient){
+        //         // dd($ingredient);
+        //         $ingArray = [];
+        //         array_push($ingArray, $ingredient->getingrediient()->getName());
+        //         array_push($ingArray, $ingredient->getQtyPp());
+        //         array_push($ing, $ingArray);
+                
+        //     }
+        //     array_push($ingredientList, $ing);
+        // }
+        // dd($ingredientList);
+
+        // $rec = [];
+        // foreach($recettesInList as $recette){
+        //     // array_push($rec, $recette->getRecette());
+
+        //     $ingredient = $recette->getRecette()->getIngredientPerRecettes();
+        //     // dd($recette->getRecette());
+        //     // $recettesInCourse = [$recette->getRecette()];
+        //     // foreach($ingredient as $ing){
+        //     //     array_push($recettesInCourse, $ing->getIngrediient());
+        //     // }
+        //     // array_push($rec, $recettesInCourse);
+        //     array_push($rec, $ingredient);
+
+        //     // dd($rec, $recettesInCourse);
+            
+        // }
+        // dd($rec);
+
+        // $recettesInCourse = [];
+        // foreach($courses as $course){
+        //     foreach($recettesInList as $recette ){
+        //         if($recette->getCourse()->getId() == $course->getId()){                    
+        //             array_push($recettesInCourse, $recette);
+        //         }
+        //     }
+        // }        
+
+        // dd($recettesInCourse);
+        // dd($recettes);
+
         return $this->render('course/index.html.twig', [
-            'courses' => $courseRepository->findAll(),
+            'courses' => $courses,
+            'connectedUser' => $connectedUser,
+            'recettes' => $recettesInList,
+            // 'ingredient' => $ingredient
         ]);
     }
 

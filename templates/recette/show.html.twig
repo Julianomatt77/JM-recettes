@@ -18,6 +18,23 @@
                 </div>
                 
                 <div class="card-body">
+
+                    <div class="pb-2">
+                    {{ form_start(form) }}
+
+                        <div class="row text-center">
+                            <div class="col-lg-4">{{ form_row(form.qty) }}</div>
+                            <div class="col-lg-6">{{ form_row(form.course) }}</div>
+                            <div class="col-lg-2">
+                                <button class="btn">
+                                    <i class="bi bi-plus-circle darkColor" style="font-size: 50px"></i>
+                                </button>
+                            </div>
+                        </div>   
+                        {{ form_row(form._token) }}
+                    {{ form_end(form, {'render_rest': false}) }}
+                    </div>
+
                     <h6 class="text-start mb-2">Origine de la recette:</h6>
                     <p>{{ recette.source }}</p>
 
