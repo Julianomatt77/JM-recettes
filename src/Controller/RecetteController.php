@@ -129,28 +129,36 @@ class RecetteController extends AbstractController
         $ingredients = $ingredientPerRecetteRepository->findAll();
         $courseRecettes = $courseRecetteRepository->findAll();
 
-        // dd($courseRecettes);
-
         // Ajout de la recette à une liste de course
         $courseRecette = new CourseRecette();
         $form = $this->createForm(CourseRecetteType::class, $courseRecette);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $listToUpdate = $form->getData()->getCourse()->getId();
+            // dd($courseRecettes);
             
-            foreach($courseRecettes as $existingCourse){
-                if($form->getData()->getCourse()->getId() == $existingCourse->getId() && $recette->getId() == $existingCourse->getRecette()->getId()){
+            // On vérifie si la recette éxiste déjà dans la liste de course sélectionnée
+            $existing = false;
+            foreach($courseRecettes as $existingCourse){ 
+
+                if($listToUpdate == $existingCourse->getCourse()->getId() 
+                && $recette->getId() == $existingCourse->getRecette()->getId()){
+
+                    $existing = true;
 
                     // Si la recette est déjà dans la liste de course on update la qty  
                     $courseRecette = $existingCourse;
                     $courseRecette->setQty($courseRecette->getQty() + $form->getData()->getQty());
                     
                     $courseRecetteRepository->add($courseRecette, true);
-                } else {
-                    // Sinon on la rajoute dans la liste de course
-                    $courseRecette->setRecette($recette);
-                    $courseRecetteRepository->add($courseRecette, true);
-                }
+                } 
+            }
+
+            if( $existing == false ){
+                $courseRecette->setRecette($recette);
+                $courseRecetteRepository->add($courseRecette, true);
             }
         }
         // Fin de l'ajout de la recette à une liste de course

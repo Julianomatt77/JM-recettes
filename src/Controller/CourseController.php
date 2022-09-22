@@ -34,65 +34,80 @@ class CourseController extends AbstractController
         $session = $request->getSession();
 
         $recettesInList = $courseRecetteRepository->findAll();
-        $courses = $courseRepository->findAll();
+        $courses = $courseRepository->findAllSorted();
         $ingredients = $ingredientPerRecetteRepository->findAll();
 
         // Lister les ingrédients
-        // dd($ingredients);
         
-        // $ingredientList = [];
-        // foreach($recettesInList as $recette){
-        //     $ingredientPerRecette = $recette->getRecette()->getIngredientPerRecettes();
-        //     // dd($ingredient);
-            
-        //     $ing= [];
-        //     foreach($ingredientPerRecette as $ingredient){
-        //         // dd($ingredient);
-        //         $ingArray = [];
-        //         array_push($ingArray, $ingredient->getingrediient()->getName());
-        //         array_push($ingArray, $ingredient->getQtyPp());
-        //         array_push($ing, $ingArray);
-                
-        //     }
-        //     array_push($ingredientList, $ing);
-        // }
+        $ingredientList = [];
+        
+        // Boucle pour chaque liste de course
+        foreach($courses as $liste){    
+            $list = [];       
+            $listeId = $liste->getId();
+            $listeName = $liste->getName();
+
+            $ingredientsListPerCourse = [];
+
+            // Récupération des recettes pour chaque liste de course
+            foreach($recettesInList as $recette){
+
+                // Si la recette appartient à la liste de course
+                if($recette->getCourse()->getId() == $liste->getId()){
+
+                    $qtyPerRecette = $recette->getQty();
+
+                    // Récupération de tous les ingrédients de la recette
+                    $ingredientPerRecette = $recette->getRecette()->getIngredientPerRecettes();                    
+                    
+                    foreach($ingredientPerRecette as $ingredient){
+                        $ingredientId = $ingredient->getingrediient()->getId();
+                        $ingredientName = $ingredient->getingrediient()->getName();
+                        $unite = $ingredient->getUnite();
+                        $qtyTotal = 0;
+                        $qtyTotal = $ingredient->getQtyPp() * $qtyPerRecette;
+                        $existing = false;
+
+                        // Si l'ingrédient existe déjà -> update de la qty
+                        if ($ingredientsListPerCourse != null){
+                            foreach($ingredientsListPerCourse as $key => $existingIngredient){
+                                if($ingredientName == $existingIngredient['name']){
+                                    $newQty = $existingIngredient['qty'] + $qtyTotal;
+                                    $ingredientsListPerCourse[$key]['qty'] = $newQty;
+                                    $existing = true;
+                                }
+                            }
+                        }
+                        
+                        $QtyPerIngredient = [];
+                        
+                        if($existing == false){
+                            $QtyPerIngredient = [
+                                'id' => $ingredientId,
+                                'name' => $ingredientName,
+                                'qty' => $qtyTotal,
+                                'unite' => $unite,
+                            ];
+                            array_push($ingredientsListPerCourse, $QtyPerIngredient);
+                        }
+                    }
+
+                }
+            }
+            $list = [
+                'id' => $listeId,
+                'name' => $listeName,
+                'ingredients' => $ingredientsListPerCourse
+            ];
+            array_push($ingredientList, $list);
+        }
         // dd($ingredientList);
-
-        // $rec = [];
-        // foreach($recettesInList as $recette){
-        //     // array_push($rec, $recette->getRecette());
-
-        //     $ingredient = $recette->getRecette()->getIngredientPerRecettes();
-        //     // dd($recette->getRecette());
-        //     // $recettesInCourse = [$recette->getRecette()];
-        //     // foreach($ingredient as $ing){
-        //     //     array_push($recettesInCourse, $ing->getIngrediient());
-        //     // }
-        //     // array_push($rec, $recettesInCourse);
-        //     array_push($rec, $ingredient);
-
-        //     // dd($rec, $recettesInCourse);
-            
-        // }
-        // dd($rec);
-
-        // $recettesInCourse = [];
-        // foreach($courses as $course){
-        //     foreach($recettesInList as $recette ){
-        //         if($recette->getCourse()->getId() == $course->getId()){                    
-        //             array_push($recettesInCourse, $recette);
-        //         }
-        //     }
-        // }        
-
-        // dd($recettesInCourse);
-        // dd($recettes);
 
         return $this->render('course/index.html.twig', [
             'courses' => $courses,
             'connectedUser' => $connectedUser,
             'recettes' => $recettesInList,
-            // 'ingredient' => $ingredient
+            'ingredientList' => $ingredientList
         ]);
     }
 

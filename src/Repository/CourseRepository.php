@@ -39,6 +39,18 @@ class CourseRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+    * @return Course[] Returns an array of Recette objects
+    */
+   public function findAllSorted(): array
+   {
+       return $this->createQueryBuilder('r')
+           ->orderBy('r.date_course', 'DESC')
+           ->getQuery()
+           ->getResult()
+       ;
+   }
+
 //    /**
 //     * @return Course[] Returns an array of Course objects
 //     */

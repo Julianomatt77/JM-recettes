@@ -3,11 +3,11 @@
 {% block title %}Edit CourseRecette{% endblock %}
 
 {% block body %}
-    <h1>Edit CourseRecette</h1>
+    <h1>Editer</h1>
 
-    {{ include('course_recette/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('course_recette/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
 
-    <a href="{{ path('app_course_recette_index') }}">back to list</a>
+    <a href="{{ path('app_course_index') }}">RETOUR</a>
 
-    {{ include('course_recette/_delete_form.html.twig') }}
+    {# {{ include('course_recette/_delete_form.html.twig') }} #}
 {% endblock %}

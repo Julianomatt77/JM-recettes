@@ -35,7 +35,7 @@ class CourseRecetteController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $courseRecetteRepository->add($courseRecette, true);
 
-            return $this->redirectToRoute('app_course_recette_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('recettes', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('course_recette/new.html.twig', [
@@ -61,7 +61,7 @@ class CourseRecetteController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $courseRecetteRepository->add($courseRecette, true);
 
-            return $this->redirectToRoute('app_course_recette_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_course_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('course_recette/edit.html.twig', [
@@ -77,6 +77,6 @@ class CourseRecetteController extends AbstractController
             $courseRecetteRepository->remove($courseRecette, true);
         }
 
-        return $this->redirectToRoute('app_course_recette_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_course_index', [], Response::HTTP_SEE_OTHER);
     }
 }
