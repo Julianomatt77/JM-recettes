@@ -7,14 +7,18 @@ use App\Entity\Recette;
 use App\Entity\Course;
 use App\Entity\IngredientPerRecette;
 use App\Entity\Ingredient;
+use App\Entity\Source;
+use App\Entity\CourseRecette;
 use App\Form\RecetteType;
 use App\Form\IngredientPerRecetteType;
 use App\Form\IngredientType;
 use App\Form\SearchType;
+use App\Form\CourseType;
 use App\Repository\RecetteRepository;
 use App\Repository\IngredientPerRecetteRepository;
 use App\Repository\IngredientRepository;
 use App\Repository\UserRepository;
+use App\Repository\CourseRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,10 +26,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
-use App\Entity\Source;
 use App\Form\SourceType;
 use App\Repository\SourceRepository;
-use App\Entity\CourseRecette;
 use App\Form\CourseRecetteType;
 use App\Repository\CourseRecetteRepository;
 
@@ -123,11 +125,22 @@ class RecetteController extends AbstractController
     }
 
     #[Route('/{id}', name: 'recette_show', methods: ['GET', 'POST'])]
-    public function show(Recette $recette, IngredientPerRecetteRepository $ingredientPerRecetteRepository, CourseRecetteRepository $courseRecetteRepository, Request $request): Response
+    public function show(Recette $recette, IngredientPerRecetteRepository $ingredientPerRecetteRepository, CourseRecetteRepository $courseRecetteRepository, Request $request, CourseRepository $courseRepository): Response
     {
         $connectedUser = $this->security->getUser();
         $ingredients = $ingredientPerRecetteRepository->findAll();
         $courseRecettes = $courseRecetteRepository->findAll();
+
+        // dd('ici');
+        $course = new Course();
+        $formCourse = $this->createForm(CourseType::class, $course);
+        $formCourse->handleRequest($request);
+        $course->setDateCourse(new \DateTime());
+        if ($formCourse->isSubmitted() && $formCourse->isValid()) {
+            $course->setUser($this->security->getUser()); 
+
+            $courseRepository->add($course, true);
+        }
 
         // Ajout de la recette à une liste de course
         $courseRecette = new CourseRecette();
@@ -160,6 +173,7 @@ class RecetteController extends AbstractController
                 $courseRecette->setRecette($recette);
                 $courseRecetteRepository->add($courseRecette, true);
             }
+          return $this->redirectToRoute('recettes', [], Response::HTTP_SEE_OTHER);  
         }
         // Fin de l'ajout de la recette à une liste de course
 
@@ -169,6 +183,7 @@ class RecetteController extends AbstractController
             'ingredients' => $ingredients,
             'course_recette' => $courseRecette,
             'form' => $form->createView(),
+            'formCourse' => $formCourse->createView()
         ]);
     }
 

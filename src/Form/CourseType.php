@@ -24,7 +24,7 @@ class CourseType extends AbstractType
                     'class'=>'form-control rounded-pill mb-4 bg-light'
                     ]])
             ->add('name', TextType::class,[
-                'label'=>'Nom',
+                'label'=>'Nom de la liste',
                 'required' => false,
                 'attr'=>[
                     'class'=>'form-control rounded-pill mb-4 bg-light'

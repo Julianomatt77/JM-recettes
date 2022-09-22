@@ -35,6 +35,21 @@
                     {{ form_end(form, {'render_rest': false}) }}
                     </div>
 
+                    <div class="pb-2">
+                    {{ form_start(formCourse) }}
+
+                        <div class="d-flex justify-content-start align-items-center">
+                            <div class="col-lg-4">{{ form_row(formCourse.name) }}</div>
+                            <div class="col-lg-8">
+                                <button class="btn btn-primary mx-3">
+                                    Nouvelle liste de course
+                                </button>
+                            </div>
+                        </div>   
+                        {{ form_row(formCourse._token) }}
+                    {{ form_end(formCourse, {'render_rest': false}) }}
+                    </div>
+
                     <h6 class="text-start mb-2">Origine de la recette:</h6>
                     <p>{{ recette.source }}</p>
 

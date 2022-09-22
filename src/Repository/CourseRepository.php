@@ -45,7 +45,7 @@ class CourseRepository extends ServiceEntityRepository
    public function findAllSorted(): array
    {
        return $this->createQueryBuilder('r')
-           ->orderBy('r.date_course', 'DESC')
+           ->orderBy('r.id', 'DESC')
            ->getQuery()
            ->getResult()
        ;
