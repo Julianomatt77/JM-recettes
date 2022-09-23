@@ -257,20 +257,16 @@ class RecetteController extends AbstractController
     }
 
     #[IsGranted('ROLE_USER')]
-    #[Route('/{id}', name: 'recette_delete', methods: ['POST'])]
-    public function delete(Request $request, Recette $recette, RecetteRepository $recetteRepository, IngredientPerRecetteRepository $ingredientPerRecetteRepository): Response
+    #[Route('/{id}/delete', name: 'recette_delete', methods: ['POST'])]
+    public function delete(Request $request, Recette $recette, RecetteRepository $recetteRepository, ): Response
     {
         $connectedUser = $this->security->getUser();
-
-        // $ingredients = $ingredientPerRecetteRepository->findBy('recette' == $recette->getId());
-        // dd($ingredients);
 
         if($recette->getUser() == $connectedUser){
             if ($this->isCsrfTokenValid('delete'.$recette->getId(), $request->request->get('_token'))) {
             $recetteRepository->remove($recette, true);
+            }
         }
-        }
-
        
 
         return $this->redirectToRoute('recettes', [], Response::HTTP_SEE_OTHER);

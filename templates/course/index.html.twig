@@ -16,6 +16,7 @@
         <div class="card my-2 col-lg-5 col-10 px-0 mx-1">
             <div class="card-header d-flex justify-content-evenly align-items-center">
                 <h5 class="mb-0">{{ course.name }}</h5>
+                
                 <a href="{{ path('app_course_edit', {'id': course.id}) }}" class="ms-2">
                     <i class="bi bi-pen" style="font-size: 20px"></i>
                 </a> 
@@ -23,7 +24,7 @@
             </div>
             
             <div class="card-body">
-                <h6 class="card-title text-center mb-2">{{ course.dateCourse ? course.dateCourse|date('Y-m-d') : '' }}</h6>
+                <h6 class="card-title text-center mb-2">{{ course.dateCourse ? course.dateCourse|date('d-m-Y') : '' }}</h6>
 
                 <div class="card my-2">
                     <h6 class="card-title text-center my-2">Recettes</h6>
@@ -32,6 +33,9 @@
                         {% if course_recette.course() and course_recette.course().id() == course.id %}
                         <div class="d-flex justify-content-start px-1">
                             {{ course_recette.recette().name() }} ( {{ course_recette.qty }} couverts) 
+                            <a href="{{ path('recette_show', {'id': course_recette.id}) }}" class="mx-2">
+                                <i class="bi bi-info-circle" style="font-size: 20px"></i>
+                            </a>
                             <a href="{{ path('app_course_recette_edit', {'id': course_recette.id}) }}" class="mx-2">
                                 <i class="bi bi-pen" style="font-size: 20px"></i>
                             </a> 
