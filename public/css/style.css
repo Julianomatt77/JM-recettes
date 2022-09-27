@@ -94,6 +94,10 @@ a {
   color: #eefbfb !important;
 }
 
+.mainSection {
+  margin-top: 80px !important;
+}
+
 /************************************/
 /* CARDS */
 /**********************************/
@@ -114,110 +118,6 @@ a {
   box-shadow: none !important;
 }
 
-/************************************/
-/* Shop bouton */
-/**********************************/
-.shop-button a {
-  color: #18558f !important;
-  padding: 0.7em calc(0.7em * 1.2);
-  display: inline-block;
-  border: 3px solid transparent;
-  position: relative;
-  font-size: 1.5em;
-  cursor: pointer;
-  letter-spacing: 0.07em;
-}
-.shop-button a .text {
-  font-family: "Dancing Script", cursive;
-  transform: translate3d(0, 0.7em, 0);
-  display: block;
-  transition: transform 0.4s cubic-bezier(0.2, 0, 0, 1) 0.4s;
-}
-.shop-button a:after {
-  position: absolute;
-  content: "";
-  bottom: -3px;
-  left: calc(0.7em * 1.2);
-  right: calc(0.7em * 1.2);
-  height: 3px;
-  background: #18558f !important;
-  transition: transform 0.8s cubic-bezier(1, 0, 0.37, 1) 0.2s, right 0.2s cubic-bezier(0.04, 0.48, 0, 1) 0.6s, left 0.4s cubic-bezier(0.04, 0.48, 0, 1) 0.6s;
-  transform-origin: left;
-}
-.shop-button .line {
-  position: absolute;
-  background: #18558f !important;
-}
-.shop-button .line.-right, .shop-button .line.-left {
-  width: 3px;
-  bottom: -3px;
-  top: -3px;
-  transform: scale3d(1, 0, 1);
-}
-.shop-button .line.-top, .shop-button .line.-bottom {
-  height: 3px;
-  left: -3px;
-  right: -3px;
-  transform: scale3d(0, 1, 1);
-}
-.shop-button .line.-right {
-  right: -3px;
-  transition: transform 0.1s cubic-bezier(1, 0, 0.65, 1.01) 0.23s;
-  transform-origin: top;
-}
-.shop-button .line.-top {
-  top: -3px;
-  transition: transform 0.08s linear 0.43s;
-  transform-origin: left;
-}
-.shop-button .line.-left {
-  left: -3px;
-  transition: transform 0.08s linear 0.51s;
-  transform-origin: bottom;
-}
-.shop-button .line.-bottom {
-  bottom: -3px;
-  transition: transform 0.3s cubic-bezier(1, 0, 0.65, 1.01);
-  transform-origin: right;
-}
-.shop-button a:hover .text,
-.shop-button a:active .text {
-  transform: translate3d(0, 0, 0);
-  transition: transform 0.6s cubic-bezier(0.2, 0, 0, 1) 0.4s;
-}
-.shop-button a:hover:after,
-.shop-button a:active:after {
-  transform: scale3d(0, 1, 1);
-  right: -3px;
-  left: -3px;
-  transform-origin: right;
-  transition: transform 0.2s cubic-bezier(1, 0, 0.65, 1.01) 0.17s, right 0.2s cubic-bezier(1, 0, 0.65, 1.01), left 0s 0.3s;
-}
-.shop-button a:hover .line,
-.shop-button a:active .line {
-  transform: scale3d(1, 1, 1);
-}
-.shop-button a:hover .line.-right,
-.shop-button a:active .line.-right {
-  transition: transform 0.1s cubic-bezier(1, 0, 0.65, 1.01) 0.2s;
-  transform-origin: bottom;
-}
-.shop-button a:hover .line.-top,
-.shop-button a:active .line.-top {
-  transition: transform 0.08s linear 0.4s;
-  transform-origin: right;
-}
-.shop-button a:hover .line.-left,
-.shop-button a:active .line.-left {
-  transition: transform 0.08s linear 0.48s;
-  transform-origin: top;
-}
-.shop-button a:hover .line.-bottom,
-.shop-button a:active .line.-bottom {
-  transition: transform 0.5s cubic-bezier(0, 0.53, 0.29, 1) 0.56s;
-  transform-origin: left;
-}
-
 /*********************
 *************
 *******************/
@@ -232,6 +132,56 @@ footer p {
   font-size: 10px;
 }
 
+/********** **********/
+/* NAV MENU */
+/*************************/
+.buttonHovered::before {
+  transform: scaleX(0) !important;
+  transform-origin: bottom right !important;
+}
+
+.buttonHovered:hover::before {
+  transform: scaleX(1) !important;
+  transform-origin: bottom left !important;
+}
+
+.buttonHovered::before {
+  content: " " !important;
+  display: block !important;
+  position: absolute !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  inset: 0 0 0 0 !important;
+  border: 2px dotted #18558f !important;
+  margin: 0px -5px 0px -5px !important;
+  border-radius: 15px !important;
+  z-index: -1 !important;
+  transition: transform 0.3s ease !important;
+}
+
+.buttonHovered {
+  position: relative !important;
+  z-index: 0 !important;
+  display: inline-block !important;
+}
+
+/**************
+******** CHEVRON UP *******
+*******************/
+.bi-chevron-up {
+  position: fixed;
+  top: 90%;
+  right: 5%;
+  border: 3px solid #18558f !important;
+}
+
 /************************************/
 /* Responsive */
 /**********************************/
+@media screen and (max-width: 650px) {
+  .bi-chevron-up {
+    top: 85%;
+  }
+}
