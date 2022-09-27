@@ -168,7 +168,7 @@ class CourseController extends AbstractController
     {
         $connectedUser = $this->security->getUser();
 
-        if($recette->getUser() == $connectedUser){
+        if($course->getUser() == $connectedUser){
             if ($this->isCsrfTokenValid('delete'.$course->getId(), $request->request->get('_token'))) {
                 $courseRepository->remove($course, true);
             }

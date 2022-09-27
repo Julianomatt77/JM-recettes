@@ -3,6 +3,7 @@
 {% block title %}Editer {{recette.name}}{% endblock %}
 
 {% block body %}
+<section class="mb-5">
     <h1>Editer la recette</h1>
 
     <div class="my-5">
@@ -35,10 +36,11 @@
             </div>
         </div>
     {% endif %}
-    {% else %}
-        <div class>
+    {# {% else %}
+        <div>
             Aucun ingrédient enregistré
-        </div>
+        </div> #}
+        
     {% endfor %}
     </div>
 
@@ -48,10 +50,11 @@
         <div class="col-lg-6">{{ include('ingredient/_form.html.twig', {'button_label': 'Ajouter un ingrédient'}) }}</div>
     </div>
 
-    <div class="text-end">
+    <div class="text-center">
         <button class="btn btn-lg btn-primary"><a href="{{ path('recettes') }}">RETOUR</a></button>
     </div>
    
 
     {# {{ include('recette/_delete_form.html.twig') }} #}
+</section>
 {% endblock %}

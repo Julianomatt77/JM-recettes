@@ -50,13 +50,26 @@
                     {{ form_end(formCourse, {'render_rest': false}) }}
                     </div>
 
-                    <h6 class="text-start mb-2">Origine de la recette:</h6>
-                    <p>{{ recette.source }}</p>
+                    <div class="row">
+                        <div class="col-6">
+                            <h6 class="text-start mb-2">Origine de la recette:</h6>
+                            <p>{{ recette.source }}</p>
 
-                    <h6 class="text-start mb-2">Nombre de personnes:</h6>
-                    <p class="card-text text-start">
-                        {{ recette.nbPersonnes }} couverts</p>
-                    <p>
+                            <h6 class="text-start mb-2">Nombre de personnes:</h6>
+                            <p class="card-text text-start">
+                                {{ recette.nbPersonnes }} couverts</p>
+                            <p>
+                        </div>
+
+                        {% if recette.image %}
+                        <div class="col-6">
+                            <div>
+                                <img src="{{ asset('images/recettes') }}/{{ recette.image }}" class="img-fluid" style="height: 150px"/>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                    </div>
 
                     <h6 class="text-start my-2"> Ingrédients</h6>
                     <ul>

@@ -30,6 +30,7 @@ use App\Form\SourceType;
 use App\Repository\SourceRepository;
 use App\Form\CourseRecetteType;
 use App\Repository\CourseRecetteRepository;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/recette')]
 class RecetteController extends AbstractController
@@ -89,7 +90,8 @@ class RecetteController extends AbstractController
         Request $request, 
         RecetteRepository $recetteRepository, 
         EntityManagerInterface $entityManager, 
-        SourceRepository $sourceRepository
+        SourceRepository $sourceRepository,
+        SluggerInterface $slugger
     ): Response
     {   
         $connectedUser = $this->security->getUser();
@@ -102,14 +104,32 @@ class RecetteController extends AbstractController
             $sourceRepository->add($source, true);
         }
 
-
-
         $recette = new Recette();
         $form = $this->createForm(RecetteType::class, $recette);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $recette -> setUser($connectedUser);
+
+            // On réccupére notre photo dans la requête image correspond au nom du champ dans notr formulaire
+            $pictureRecette = $form->get('image')->getData();
+
+            if ($pictureRecette != null){
+                // Génération d'un nouveau nom sécurisé et unique
+                $originalFilename = pathinfo($pictureRecette->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$pictureRecette->guessExtension();
+
+                // J'upload le fichier dans le dossier contenu dans services.yaml qui a la clé product_image
+                // Je l'upload avec son nouveau nom
+                $pictureRecette->move(
+                    $this->getParameter('recette_image'),
+                    $newFilename
+                );
+
+                // Dans ma BDD, j'ajoute le nom unique du fichier pour le retrouver
+                $recette->setImage($newFilename);
+            }
 
             $recetteRepository->add($recette, true);
             
@@ -189,13 +209,12 @@ class RecetteController extends AbstractController
 
     #[IsGranted('ROLE_USER')]
     #[Route('/{id}/edit', name: 'recette_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Recette $recette, RecetteRepository $recetteRepository, IngredientPerRecetteRepository $ingredientPerRecetteRepository, IngredientRepository $ingredientRepository, SourceRepository $sourceRepository): Response
+    public function edit(Request $request, Recette $recette, RecetteRepository $recetteRepository, IngredientPerRecetteRepository $ingredientPerRecetteRepository, IngredientRepository $ingredientRepository, SourceRepository $sourceRepository, SluggerInterface $slugger): Response
     {
         
         $connectedUser = $this->security->getUser();
         $form = $this->createForm(RecetteType::class, $recette);
         $form->handleRequest($request);
-
         
         if ($form->getData()->getUser() == $connectedUser){
 
@@ -234,9 +253,32 @@ class RecetteController extends AbstractController
                 $ingredientPerRecetteRepository->add($ingredient, true);
             }
 
+            $image = $form->getData()->getImage();
+            if (!empty($image)){
+                $form->getData()->setImage($image);
+            }
             // Formulaire global de la recette
             if ($form->isSubmitted() && $form->isValid()) {
-                // dd($form);
+                // On réccupére notre photo dans la requête image correspond au nom du champ dans notr formulaire
+                $pictureRecette = $form->get('image')->getData();
+
+                if ($pictureRecette != null){
+                    // Génération d'un nouveau nom sécurisé et unique
+                    $originalFilename = pathinfo($pictureRecette->getClientOriginalName(), PATHINFO_FILENAME);
+                    $safeFilename = $slugger->slug($originalFilename);
+                    $newFilename = $safeFilename.'-'.uniqid().'.'.$pictureRecette->guessExtension();
+
+                    // J'upload le fichier dans le dossier contenu dans services.yaml qui a la clé product_image
+                    // Je l'upload avec son nouveau nom
+                    $pictureRecette->move(
+                        $this->getParameter('recette_image'),
+                        $newFilename
+                    );
+
+                    // Dans ma BDD, j'ajoute le nom unique du fichier pour le retrouver
+                    $recette->setImage($newFilename);
+                }
+
                 $recetteRepository->add($recette, true);
 
                 return $this->redirectToRoute('recettes', [], Response::HTTP_SEE_OTHER);

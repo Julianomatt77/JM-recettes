@@ -17,10 +17,12 @@ class CourseRecette
     private ?int $qty = null;
 
     #[ORM\ManyToOne(inversedBy: 'courseRecettes')]
+    // #[ORM\Column(nullable: true)]
     #[ORM\JoinColumn(onDelete:"SET NULL")]
     private ?Course $course = null;
 
     #[ORM\ManyToOne(inversedBy: 'courseRecettes')]
+    // #[ORM\Column(nullable: true)]
     #[ORM\JoinColumn(onDelete:"SET NULL")]
     private ?Recette $recette = null;
 
