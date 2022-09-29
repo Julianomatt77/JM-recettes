@@ -197,13 +197,20 @@ class RecetteController extends AbstractController
         }
         // Fin de l'ajout de la recette à une liste de course
 
+        if($request->headers->get('referer')){
+                $referer = filter_var($request->headers->get('referer'), FILTER_SANITIZE_URL);
+        } else {
+            $referer=''; 
+        }  
+
         return $this->render('recette/show.html.twig', [
             'recette' => $recette,
             'connectedUser' => $connectedUser,
             'ingredients' => $ingredients,
             'course_recette' => $courseRecette,
             'form' => $form->createView(),
-            'formCourse' => $formCourse->createView()
+            'formCourse' => $formCourse->createView(),
+            'referer' => $referer
         ]);
     }
 
@@ -281,8 +288,21 @@ class RecetteController extends AbstractController
 
                 $recetteRepository->add($recette, true);
 
+                // if($request->headers->get('referer')){
+                //     $referer = filter_var($request->headers->get('referer'), FILTER_SANITIZE_URL);
+                //     return $this->redirect($referer);
+                // } else {
+                //     return $this->redirectToRoute('recettes', [], Response::HTTP_SEE_OTHER);
+                // }
+
                 return $this->redirectToRoute('recettes', [], Response::HTTP_SEE_OTHER);
             }
+
+            if($request->headers->get('referer')){
+                $referer = filter_var($request->headers->get('referer'), FILTER_SANITIZE_URL);
+            } else {
+                $referer=''; 
+            }      
 
             return $this->renderForm('recette/edit.html.twig', [
             'recette' => $recette,
@@ -291,6 +311,7 @@ class RecetteController extends AbstractController
             'ingredient_per_recettes' => $ingredientPerRecetteRepository->findAll(),
             'ingredientNewform' => $ingredientNewform,
             'sourceForm' => $sourceForm,
+            'referer' => $referer
         ]);
         }
         

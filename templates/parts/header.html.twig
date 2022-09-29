@@ -7,32 +7,22 @@
       {# <div class="navbar-nav"> #}
         <div class="navbar-nav d-flex justify-content-between container">
           <div class="d-flex justify-content-evenly">
-            <a class="nav-link buttonHovered mx-3" href="{{ path('default') }}">Home</a>
-            <a class="nav-link buttonHovered mx-3" href="{{ path('recettes') }}">Recettes</a>
+            <a class="nav-link buttonHovered mx-3" href="{{ path('default') }}">Accueil</a>
+            <a class="nav-link buttonHovered mx-3" href="{{ path('recettes') }}" title="Recettes">Recettes</a>
             {% if app.user %}
-              <a class="nav-link buttonHovered mx-3" href="{{ path('app_course_index') }}">Liste de course</a>
+              <a class="nav-link buttonHovered mx-3" href="{{ path('app_course_index') }}" title="Liste de course">Liste de course</a>
             {% endif %}  
           </div>
           <div>
             {% if app.user %}
-              <a class="buttonHovered mx-3" href="{{ path('app_logout') }}"><i class="bi bi-person-x-fill text-danger" style="font-size: 30px"></i></a>
+              <a class="buttonHovered" href="{{ path('app_account', {'id': app.user.id}) }}" title="Mon compte"><i class="bi bi-person" style="font-size: 30px"></i></a>
+              <a class="buttonHovered mx-3" href="{{ path('app_logout') }}" title="Se déconnecter"><i class="bi bi-person-x-fill text-danger" style="font-size: 30px"></i></a>
               {% else %}
-              <a class="nav-link buttonHovered mx-3" href="{{ path('app_register') }}">S'enregistrer</a>
-              <a class="buttonHovered" href="{{ path('app_login') }}"><i class="bi bi-person" style="font-size: 30px"></i></a>
+              {# <a class="nav-link buttonHovered mx-3" href="{{ path('app_register') }}">S'enregistrer</a> #}
+              <a class="buttonHovered" href="{{ path('app_login') }}" title="Se connecter"><i class="bi bi-person" style="font-size: 30px"></i></a>
             {% endif %}          
           </div>
         </div>
-        
-        {# <a class="nav-link" aria-current="page" href="{{ path('default') }}">Home</a>
-        <a class="nav-link" href="{{ path('recettes') }}">Recettes</a>
-        {% if app.user %}
-          <a class="nav-link" href="{{ path('app_course_index') }}">Liste de course</a>
-          <a class="" href="{{ path('app_logout') }}"><i class="bi bi-person-x-fill text-danger" style="font-size: 30px"></i></a>
-        {% else %}
-          <a class="nav-link" href="{{ path('app_register') }}">Register</a>
-          <a class="nav-link" href="{{ path('app_login') }}"><i class="bi bi-person" style="font-size: 30px"></i></a>
-        {% endif %} #}
-      {# </div> #}
     </div>
   </div>
 </nav>

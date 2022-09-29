@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 #[IsGranted('ROLE_USER')]
-#[Route('/ingredient/per/recette')]
+#[Route('/ingredient_per_recette')]
 class IngredientPerRecetteController extends AbstractController
 {
     #[Route('/', name: 'app_ingredient_per_recette_index', methods: ['GET'])]
@@ -57,15 +57,31 @@ class IngredientPerRecetteController extends AbstractController
         $form = $this->createForm(IngredientPerRecetteType::class, $ingredientPerRecette);
         $form->handleRequest($request);
 
+        $recette_nb_personnes = $ingredientPerRecette->getRecette()->getNbPersonnes();
+        $qty_pp = $ingredientPerRecette->getQtyPp();
+      
+
         if ($form->isSubmitted() && $form->isValid()) {
+            $qty_pp = ($ingredientPerRecette->getQty()) / $recette_nb_personnes;
+
+            $ingredientPerRecette->setQtyPp($qty_pp);
+
             $ingredientPerRecetteRepository->add($ingredientPerRecette, true);
 
-            return $this->redirectToRoute('app_ingredient_per_recette_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirect($referer);
+
         }
+
+        if($request->headers->get('referer')){
+                $referer = filter_var($request->headers->get('referer'), FILTER_SANITIZE_URL);
+            } else {
+                $referer=''; 
+            } 
 
         return $this->renderForm('ingredient_per_recette/edit.html.twig', [
             'ingredient_per_recette' => $ingredientPerRecette,
             'ingredientForm' => $form,
+            'referer' => $referer
         ]);
     }
 

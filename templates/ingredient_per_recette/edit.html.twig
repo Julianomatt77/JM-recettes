@@ -1,13 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit IngredientPerRecette{% endblock %}
+{% block title %}Editer l'ingrédient{% endblock %}
 
 {% block body %}
-    <h1>Edit IngredientPerRecette</h1>
+    <h1>Editer l'ingrédient</h1>
 
     {{ include('ingredient_per_recette/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('app_ingredient_per_recette_index') }}">back to list</a>
+        {% if referer %}
+            <button class="btn btn-lg btn-primary"><a href="{{ absolute_url(referer) }}">RETOUR</a></button>
+        {% else %}
+            <button class="btn btn-lg btn-primary"><a href="{{ path('recettes') }}">RETOUR</a></button>
+        {% endif %}
 
-    {{ include('ingredient_per_recette/_delete_form.html.twig') }}
+    {# <a href="{{ path('app_ingredient_per_recette_index') }}">back to list</a> #}
+
+    {# {{ include('ingredient_per_recette/_delete_form.html.twig') }} #}
 {% endblock %}

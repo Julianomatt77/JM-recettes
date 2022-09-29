@@ -33,7 +33,7 @@
                         {% if course_recette.course() and course_recette.course().id() == course.id %}
                         <div class="d-flex justify-content-start px-1">
                             {{ course_recette.recette().name() }} ( {{ course_recette.qty }} couverts) 
-                            <a href="{{ path('recette_show', {'id': course_recette.id}) }}" class="mx-2">
+                            <a href="{{ path('recette_show', {'id': course_recette.recette.id}) }}" class="mx-2">
                                 <i class="bi bi-info-circle" style="font-size: 20px"></i>
                             </a>
                             <a href="{{ path('app_course_recette_edit', {'id': course_recette.id}) }}" class="mx-2">

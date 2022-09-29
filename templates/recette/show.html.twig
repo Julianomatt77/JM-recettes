@@ -94,7 +94,12 @@
         </div>
 
         <div class="text-center mt-4">
-            <button class="btn btn-lg btn-primary"><a href="{{ path('recettes') }}">RETOUR</a></button>
+            {# <button class="btn btn-lg btn-primary"><a href="{{ path('recettes') }}">RETOUR</a></button> #}
+            {% if referer %}
+                <button class="btn btn-lg btn-primary"><a href="{{ absolute_url(referer) }}">RETOUR</a></button>
+            {% else %}
+                <button class="btn btn-lg btn-primary"><a href="{{ path('recettes') }}">RETOUR</a></button>
+            {% endif %}
         </div>
 
     </div>

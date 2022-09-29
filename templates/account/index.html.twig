@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gérer mon compte{% endblock %}
+
+{% block body %}
+<div class="container d-flex justify-content-center text-center">
+    <div>
+        <h1 class="mb-4">Mes informations personnelles</h1>
+
+        <div class="mt-4 mb-5">                           
+                <div class="mb-4 pb-2">
+                    Nom d'utilisateur
+                    
+                </div>
+                <div class="mb-4 pb-2">
+                    <span class="bg-dark lightColor mx-3 px-3 py-2 rounded-pill">
+                        {{ app.user.username }}
+                    </span>
+                </div>
+             
+                <div class="mb-4 pb-2">
+                    Adresse e-mail
+                </div>
+                <div class="mb-4 pb-2">
+                    <span class="bg-dark lightColor mx-3 px-3 py-2 rounded-pill">
+                    {{ app.user.email }}
+                    </span>
+                </div>
+        </div>    
+
+        <div class="text-center mt-5 d-flex justify-content-evenly">
+            <div>
+                <a class="btn bg-light darkGreen border rounded-pill"
+                href="{{ path('account_edit', {'id': app.user.id}) }}">Editer mes informations</a>
+            </div>
+
+            {{ include('account/_delete_form.html.twig')}}
+        </div>
+    </div>
+
+</div>
+{% endblock %}
