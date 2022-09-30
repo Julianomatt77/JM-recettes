@@ -18,11 +18,11 @@
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
             
-            <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" type="text/css">
-            <link rel="stylesheet" href="{{ asset('font/bootstrap-icons.css') }}" type="text/css">
-            <link rel="stylesheet" href="{{ asset('assets/fontawesome/css/all.css') }}" type="text/css">
+            <link rel="stylesheet" href="{{ asset('public/css/bootstrap.min.css') }}" type="text/css">
+            <link rel="stylesheet" href="{{ asset('public/font/bootstrap-icons.css') }}" type="text/css">
+            <link rel="stylesheet" href="{{ asset('public/assets/fontawesome/css/all.css') }}" type="text/css">
 
-            <link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css">
+            <link rel="stylesheet" href="{{ asset('public/css/style.css') }}" type="text/css">
         {% endblock %}
 
         {% block javascripts %}
@@ -43,6 +43,6 @@
             {% include ('parts/footer.html.twig') %}
         {% endblock %}
 
-        <script rel="script" src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+        <script rel="script" src="{{ asset('public/js/bootstrap.bundle.min.js') }}"></script>
     </body>
 </html>
