@@ -18,11 +18,12 @@
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
             
-            <link rel="stylesheet" href="{{ asset('public/css/bootstrap.min.css') }}" type="text/css">
-            <link rel="stylesheet" href="{{ asset('public/font/bootstrap-icons.css') }}" type="text/css">
-            <link rel="stylesheet" href="{{ asset('public/assets/fontawesome/css/all.css') }}" type="text/css">
+            <link rel="stylesheet" href="{{ asset('/public/css/bootstrap.min.css') }}" type="text/css">
+            <link rel="stylesheet" href="{{ asset('/public/font/bootstrap-icons.css') }}" type="text/css">
+            <link rel="stylesheet" href="{{ asset('/public/assets/fontawesome/css/all.css') }}" type="text/css">
+            <link rel="stylesheet" href="{{ asset('/public/css/style.css') }}" type="text/css">
 
-            <link rel="stylesheet" href="{{ asset('public/css/style.css') }}" type="text/css">
+            <link rel="stylesheet" href="/public/css/style.css" type="text/css">
         {% endblock %}
 
         {% block javascripts %}
