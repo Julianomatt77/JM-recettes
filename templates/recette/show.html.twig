@@ -64,7 +64,8 @@
                         {% if recette.image %}
                         <div class="col-6">
                             <div>
-                                <img src="{{ asset('images/recettes') }}/{{ recette.image }}" class="img-fluid" style="height: 150px"/>
+                                {# <img src="{{ asset('images/recettes') }}/{{ recette.image }}" class="img-fluid" style="height: 150px"/> #}
+                                <img src="/public/images/recettes/{{ recette.image }}" class="img-fluid" style="height: 150px"/>
                             </div>
                         </div>
                         {% endif %}
